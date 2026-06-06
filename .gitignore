@@ -1,0 +1,39 @@
+# Dependencies
+
+node_modules/
+
+# Build folders
+
+dist/
+build/
+
+# Parcel cache
+
+.parcel-cache/
+
+# Environment variables
+
+.env
+
+# Logs
+
+*.log
+
+# OS generated files
+
+.DS_Store
+Thumbs.db
+
+# IDE files
+
+.vscode/
+.idea/
+
+# Temporary files
+
+tmp/
+temp/
+
+# Uploads
+
+uploads/
