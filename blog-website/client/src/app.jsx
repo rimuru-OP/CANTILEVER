@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
-import Post from "./pages/CreateBlog.jsx";
+import PostsPage from "./pages/PostsPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 
@@ -18,8 +18,8 @@ export default function App(){
                 element={<AboutPage />}
             />
             <Route 
-                path="/post" 
-                element={<Post />} 
+                path="/posts" 
+                element={<PostsPage />} 
             />
             <Route
                 path="/login"

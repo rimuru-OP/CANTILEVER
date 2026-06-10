@@ -1,0 +1,179 @@
+/* =========================
+   ABOUT PAGE
+========================= */
+
+.about-page{
+    min-height: 100vh;
+
+    background-color: #f8fafc;
+
+    padding-bottom: 80px;
+}
+
+/* HERO */
+
+.about-hero{
+    padding: 120px 20px 80px;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(124, 77, 255, 0.18),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            rgba(91, 52, 230, 0.14),
+            transparent 30%
+        ),
+        #f8fafc;
+}
+
+.about-hero h1{
+    font-size: 4rem;
+
+    line-height: 1.1;
+
+    color: #111827;
+
+    max-width: 900px;
+
+    margin: 0 auto 30px;
+}
+
+.about-hero p{
+    max-width: 750px;
+
+    margin: 0 auto;
+
+    font-size: 1.2rem;
+
+    line-height: 1.9;
+
+    color: #4b5563;
+}
+
+/* MAIN CONTENT */
+
+.about-content{
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 35px;
+
+    padding: 0 30px;
+}
+
+/* CARD */
+
+.about-card{
+    background-color: white;
+
+    padding: 40px;
+
+    border-radius: 24px;
+
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.about-card h2{
+    font-size: 2rem;
+
+    margin-bottom: 20px;
+
+    color: #111827;
+}
+
+.about-card p{
+    color: #4b5563;
+
+    line-height: 1.9;
+
+    font-size: 1.05rem;
+}
+
+/* FEATURES GRID */
+
+.features-grid{
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 25px;
+
+    margin-top: 30px;
+}
+
+/* FEATURE BOX */
+
+.feature-box{
+    background-color: #f3f4f6;
+
+    border-radius: 18px;
+
+    padding: 35px 20px;
+
+    text-align: center;
+
+    transition: all 0.25s ease;
+}
+
+.feature-box:hover{
+    transform: translateY(-5px);
+
+    background-color: #ede9fe;
+}
+
+.feature-box span{
+    font-size: 2.5rem;
+
+    display: block;
+
+    margin-bottom: 15px;
+}
+
+.feature-box h3{
+    color: #111827;
+
+    font-size: 1.1rem;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px){
+
+    .features-grid{
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .about-hero h1{
+        font-size: 3rem;
+    }
+
+}
+
+@media (max-width: 650px){
+
+    .features-grid{
+        grid-template-columns: 1fr;
+    }
+
+    .about-card{
+        padding: 30px 22px;
+    }
+
+    .about-hero h1{
+        font-size: 2.4rem;
+    }
+
+    .about-hero p{
+        font-size: 1rem;
+    }
+
+}

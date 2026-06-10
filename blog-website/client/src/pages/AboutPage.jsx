@@ -1,3 +1,4 @@
+import "../stylesheets/AboutPage.css";
 import Header from "../components/HomePage/Header.jsx";
 import Footer from "../components/HomePage/Footer.jsx";
 
@@ -13,7 +14,7 @@ export default function AboutPage() {
                         A Place Where Ideas Become Stories
                     </h1>
                     <p>
-                        BlogSphere is a modern blogging platform designed for
+                        MyBlog is a modern blogging platform designed for
                         creators, developers, writers, gamers, and curious minds
                         who want to share meaningful content with the world.
                     </p>
@@ -24,18 +25,18 @@ export default function AboutPage() {
                         <h2>Our Vision</h2>
                         <p>
                             We wanted to build more than just another blogging
-                            website. BlogSphere is focused on creating a clean,
+                            website. MyBlog is focused on creating a clean,
                             fast, and immersive reading experience where content
                             feels personal and engaging.
                         </p>
                     </div>
 
                     <div className="about-card">
-                        <h2>Why BlogSphere?</h2>
+                        <h2>Why MyBlog?</h2>
                         <p>
                             Modern platforms are often cluttered with ads,
                             distractions, and unnecessary complexity.
-                            BlogSphere keeps the focus where it belongs:
+                            MyBlog keeps the focus where it belongs:
                             the stories, ideas, and creativity of its users.
                         </p>
                     </div>
@@ -80,7 +81,7 @@ export default function AboutPage() {
                         <h2>Built For Modern Creators</h2>
                         <p>
                             Built using React and modern web technologies,
-                            BlogSphere aims to provide a smooth and responsive
+                            MyBlog aims to provide a smooth and responsive
                             experience across all devices.
                         </p>
                     </div>
