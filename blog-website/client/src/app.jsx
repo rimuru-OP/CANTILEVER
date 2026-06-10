@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
-import Post from "./pages/Post.jsx";
+import Post from "./pages/CreateBlog.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 
@@ -29,7 +29,6 @@ export default function App(){
                 path="/register"
                 element={<RegisterPage />}
             />
-
         </Routes>
     </BrowserRouter>
  );
