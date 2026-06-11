@@ -73,6 +73,11 @@
 
 /* CONTENT */
 
+.post-link{
+    text-decoration: none;
+    color: inherit;
+}
+
 .post-content{
     padding: 20px;
 }

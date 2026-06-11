@@ -4,7 +4,7 @@ import AboutPage from "./pages/AboutPage.jsx";
 import PostsPage from "./pages/PostsPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
-
+import BlogPost from "./pages/BlogPost.jsx";
 export default function App(){
  return (
     <BrowserRouter>
@@ -20,6 +20,10 @@ export default function App(){
             <Route 
                 path="/posts" 
                 element={<PostsPage />} 
+            />
+            <Route 
+                path="/posts/:id" 
+                element={<BlogPost />} 
             />
             <Route
                 path="/login"
