@@ -5,6 +5,8 @@ import PostsPage from "./pages/PostsPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 import BlogPost from "./pages/BlogPost.jsx";
+import CreateBlog from "./pages/CreateBlog.jsx";
+
 export default function App(){
  return (
     <BrowserRouter>
@@ -32,6 +34,10 @@ export default function App(){
              <Route
                 path="/register"
                 element={<RegisterPage />}
+            />
+            <Route
+                path="/create"
+                element={<CreateBlog />}
             />
         </Routes>
     </BrowserRouter>

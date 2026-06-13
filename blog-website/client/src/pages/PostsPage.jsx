@@ -1,10 +1,12 @@
 import "../stylesheets/PostsPage.css";
 import Header from "../components/HomePage/Header.jsx";
 import Footer from "../components/HomePage/Footer.jsx";
-import posts from "../components/HomePage/PostData.js";
+import PostData from "../data/PostData.js";
 import PostCard from "../components/PostCard.jsx";
 
 export default function PostsPage() {
+    const savedPosts = JSON.parse(localStorage.getItem("posts")) || [];
+    const posts = [...PostData, ...savedPosts];
     return (
         <>
             <Header />

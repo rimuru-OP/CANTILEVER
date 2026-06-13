@@ -1,7 +1,9 @@
-import posts from "./PostData.js";
+import PostData from "../../data/PostData";
 import PostCard from "../PostCard.jsx";
 
 export default function LatestPosts() {
+    const savedPosts = JSON.parse(localStorage.getItem("posts")) || [];
+    const posts = [...PostData, ...savedPosts];
 
     return (
         <section className="latest-posts">

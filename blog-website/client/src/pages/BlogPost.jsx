@@ -1,11 +1,9 @@
 import "../stylesheets/BlogPost.css";
 
 import { useParams } from "react-router-dom";
-
 import Header from "../components/HomePage/Header.jsx";
 import Footer from "../components/HomePage/Footer.jsx";
-
-import posts from "../components/HomePage/PostData.js";
+import posts from "../data/PostData.js";
 
 export default function BlogPost() {
 
@@ -14,8 +12,6 @@ export default function BlogPost() {
     const post = posts.find(
         (post) => post.id === Number(id)
     );
-
-    /* POST NOT FOUND */
 
     if (!post) {
 
@@ -111,4 +107,5 @@ export default function BlogPost() {
         </>
 
     );
+
 }
