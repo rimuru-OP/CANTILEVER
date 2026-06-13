@@ -1,12 +1,10 @@
 import "../stylesheets/AboutPage.css";
-import Header from "../components/HomePage/Header.jsx";
-import Footer from "../components/HomePage/Footer.jsx";
-
+import Layout from "../components/Layout.jsx";
 export default function AboutPage() {
 
     return (
         <>
-            <Header />
+            <Layout >
             <section className="about-page">
                 {/* HERO */}
                 <div className="about-hero">
@@ -87,7 +85,7 @@ export default function AboutPage() {
                     </div>
                 </div>
             </section>
-            <Footer />
+            </Layout>
         </>
     );
 }

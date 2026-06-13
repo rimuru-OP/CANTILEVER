@@ -1,3 +1,10 @@
+import Layout from "../components/Layout.jsx";
 export default function RegisterPage(){
-    return (<></>);
+    return (
+        <>
+            <Layout>
+                
+            </Layout>
+        </>
+    );
 }

@@ -1,6 +1,5 @@
 import "../stylesheets/PostsPage.css";
-import Header from "../components/HomePage/Header.jsx";
-import Footer from "../components/HomePage/Footer.jsx";
+import Layout from "../components/Layout.jsx";
 import PostData from "../data/PostData.js";
 import PostCard from "../components/PostCard.jsx";
 
@@ -9,7 +8,7 @@ export default function PostsPage() {
     const posts = [...PostData, ...savedPosts];
     return (
         <>
-            <Header />
+            <Layout>
             <section className="posts-page">
                 {/* HERO */}
                 <div className="posts-hero">
@@ -31,7 +30,7 @@ export default function PostsPage() {
                     }
                 </div>
             </section>
-            <Footer />
+            </Layout>
         </>
     );
 }
