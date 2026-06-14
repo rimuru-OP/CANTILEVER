@@ -167,8 +167,8 @@ Backend can be deployed on:
 
 **Annany Thakur**
 
-* GitHub: https://github.com/your-github-username
-* LinkedIn: https://linkedin.com/in/your-linkedin-profile
+* GitHub: https://github.com/rimuru-OP
+* LinkedIn: https://www.linkedin.com/in/annany-thakur-592823291
 
 ---
 
