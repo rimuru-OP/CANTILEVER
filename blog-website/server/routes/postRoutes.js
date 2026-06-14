@@ -4,6 +4,8 @@ const Post = require("../models/Post.js");
 const protect = require("../middleware/authMiddleware.js");
 const {
     createPost,
+    deletePost,
+    updatePost,
 } = require("../controllers/postController");
 
 // get all posts
@@ -41,4 +43,9 @@ router.get("/:id", async (req, res) => {
 //create post
 router.post("/", protect, createPost);
 
+//delete post
+router.delete("/:id", protect, deletePost);
+
+//update post
+router.put("/:id", protect, updatePost);
 module.exports = router;
