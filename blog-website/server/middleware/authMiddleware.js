@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const User = require("../models/User");
 
 const protect = async (req, res, next) => {
     let token;
@@ -14,7 +15,7 @@ const protect = async (req, res, next) => {
             )
 
             //save data
-            req.user = decoded;
+            req.user = await User.findById(decoded.id).select("-password");
             next(); //continue
         } catch(err){
             return res.status(401).json({

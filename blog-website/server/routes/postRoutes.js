@@ -1,16 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const Post = require("../models/Post.js");
+const protect = require("../middleware/authMiddleware.js");
+const {
+    createPost,
+} = require("../controllers/postController");
 
 // get all posts
 router.get("/", async (req, res)=>{
     try{
         const posts = await Post.find();
-        if(!posts){
-            return res.status(404).json({
-                message: "posts not found",
-            })
-        }
         res.status(200).json(posts);
     }
     catch (error){
@@ -32,7 +31,7 @@ router.get("/:id", async (req, res) => {
         }
         res.status(200).json(post);
     }
-    catch{
+    catch(error){
         res.status(500).json({
             message: error.message,
         });
@@ -40,16 +39,6 @@ router.get("/:id", async (req, res) => {
 })
 
 //create post
-router.post("/", async (req, res) => {
-    try {
-        const post = new Post(req.body);
-        const savedPost = await post.save();
-        res.status(201).json(savedPost);
-    }
-    catch (error){
-        res.status(400).json({
-            message: error.message,
-        })
-    }
-})
+router.post("/", protect, createPost);
+
 module.exports = router;
