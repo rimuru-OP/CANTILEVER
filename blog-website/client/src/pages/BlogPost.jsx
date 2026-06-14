@@ -1,48 +1,60 @@
 import "../stylesheets/BlogPost.css";
+import { useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
 import Layout from "../components/Layout.jsx";
-import PostData from "../data/PostData.js";
+
 
 export default function BlogPost() {
-    const savedPosts =  JSON.parse(localStorage.getItem("posts")) || [];
-    const posts = [...PostData, ...savedPosts];
-    
     const { id } = useParams();
 
-    const post = posts.find(
-        (post) => post.id === Number(id)
-    );
+    const [post, setPost] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    if (!post) {
+    useEffect(()=>{
+        const fetchPost = async ()=>{
+            try{
+                const response = await fetch(
+                    `http://localhost:5000/api/posts/${id}`
+                );
+                const data = await response.json();   
+                setPost(data);
+            } catch(err) {
+                console.log(err);
+            } finally {
+                setLoading(false);
+            };
+        };
+        fetchPost();
+    }, [id]);
+
+    if (loading) {
+        return (
+            <Layout>
+                <h1>Loading...</h1>
+            </Layout>
+        );
+    }
+    if (!post || post.message) {
 
         return (
-
-            <>
-        
-                <Layout>
+            <Layout>
 
                 <section className="blog-not-found">
-
                     <h1>Post Not Found</h1>
-
                     <p>
                         The blog post you are looking for does not exist.
                     </p>
-
                 </section>
 
-                </Layout>
-            </>
-
+            </Layout>
         );
     }
 
     return (
 
-        <>
 
-            <Layout>
+        <Layout>
 
             <section className="blog-post-page">
 
@@ -104,9 +116,7 @@ export default function BlogPost() {
 
             </section>
 
-            </Layout>
-
-        </>
+        </Layout> 
 
     );
 

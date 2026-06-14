@@ -1,11 +1,32 @@
 import "../stylesheets/PostsPage.css";
+import { useState, useEffect } from "react";
 import Layout from "../components/Layout.jsx";
-import PostData from "../data/PostData.js";
 import PostCard from "../components/PostCard.jsx";
 
 export default function PostsPage() {
-    const savedPosts = JSON.parse(localStorage.getItem("posts")) || [];
-    const posts = [...PostData, ...savedPosts];
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState([true]);
+    useEffect(()=>{
+        const fetchPosts = async () => {
+            try {
+                const response = await  fetch(
+                    "http://localhost:5000/api/posts"
+                );
+                const data = await response.json();
+                setPosts(data);
+            }
+            catch(err){
+                console.log(err);
+            }
+            finally {
+                setLoading(false);
+            }
+        };
+        fetchPosts();
+    }, []);
+    if(loading){
+        return <h1>Loading...</h1>
+    }
     return (
         <>
             <Layout>
@@ -23,7 +44,7 @@ export default function PostsPage() {
                     {
                         posts.map((post) => (
                             <PostCard
-                                key={post.id}
+                                key={post._id}
                                 post={post}
                             />
                         ))

@@ -5,7 +5,7 @@ export default function PostCard({ post }) {
     return (
 
         <Link
-            to={`/posts/${post.id}`}
+            to={`/posts/${post._id}`}
             className="post-link"
         >
 
