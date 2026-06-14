@@ -1,72 +1,125 @@
 .create-page {
 
-    min-height: 100vh;
-    padding-left: 3.5rem;
-    padding-right: 3.5rem;
-    padding-top: 100px;
-    padding-bottom: 20px;
+    width: 100%;
+
     display: flex;
+
     justify-content: center;
-    align-items: center;
+
+    padding:
+        120px 24px 60px;
 }
 
 .create-form {
+
     width: 100%;
-    max-width: 700px;
+
+    max-width: 760px;
 
     display: flex;
+
     flex-direction: column;
-    gap: 1.2rem;
 
-    padding: 2rem;
-    border-radius: 16px;
+    gap: 1.25rem;
 
-    background: #111;
+    padding: 2.4rem;
+
+    border-radius: 22px;
+
+    background: white;
+
+    border: 1px solid #ececec;
+
+    box-shadow:
+        0 10px 30px rgba(
+            0,
+            0,
+            0,
+            0.08
+        );
 }
 
 .create-form h1 {
+
     font-size: 2rem;
+
+    color: #111827;
 }
 
 .create-form input,
 .create-form textarea {
+
     width: 100%;
 
-    padding: 1rem;
+    padding: 1rem 1.1rem;
 
-    border: none;
-    border-radius: 10px;
+    border: 2px solid #e5e7eb;
+
+    border-radius: 14px;
 
     font-size: 1rem;
 
-    background: #1c1c1c;
-    color: white;
+    background: #fafafa;
+
+    color: #111827;
+
+    transition: 0.25s ease;
 }
 
 .create-form textarea {
-    min-height: 220px;
+
+    min-height: 240px;
+
     resize: vertical;
+
+    line-height: 1.7;
 }
 
 .create-form input:focus,
 .create-form textarea:focus {
-    outline: 2px solid #646cff;
+
+    outline: none;
+
+    border-color: #7c4dff;
+
+    background: white;
+
+    box-shadow:
+        0 0 0 4px rgba(
+            124,
+            77,
+            255,
+            0.12
+        );
 }
 
 .create-form button {
+
     padding: 1rem;
 
     border: none;
-    border-radius: 10px;
+
+    border-radius: 14px;
 
     font-size: 1rem;
+
     font-weight: 600;
 
     cursor: pointer;
 
-    transition: 0.2s ease;
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7c4dff,
+            #5b34e6
+        );
+
+    transition: 0.25s ease;
 }
 
 .create-form button:hover {
+
     transform: translateY(-2px);
 }

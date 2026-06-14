@@ -6,6 +6,7 @@ import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 import BlogPost from "./pages/BlogPost.jsx";
 import CreateBlog from "./pages/CreateBlog.jsx";
+import EditBlog from "./pages/EditBlog.jsx";
 
 export default function App(){
  return (
@@ -38,6 +39,10 @@ export default function App(){
             <Route
                 path="/create"
                 element={<CreateBlog />}
+            />
+            <Route
+                path="/edit/:id"
+                element = {<EditBlog />}
             />
         </Routes>
     </BrowserRouter>

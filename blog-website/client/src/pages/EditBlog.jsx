@@ -2,21 +2,28 @@ import "../stylesheets/CreateBlog.css";
 
 import { useState, useEffect } from "react";
 
-import { useNavigate } from "react-router-dom";
+import {
+    useParams,
+    useNavigate
+} from "react-router-dom";
 
 import Layout from "../components/Layout.jsx";
 
-export default function CreateBlog() {
+export default function EditBlog() {
+
+    const { id } = useParams();
+
+    const navigate = useNavigate();
 
     const [title, setTitle] = useState("");
-
-    const [content, setContent] = useState("");
 
     const [category, setCategory] = useState("");
 
     const [description, setDescription] = useState("");
 
-    const navigate = useNavigate();
+    const [content, setContent] = useState("");
+
+    const [loading, setLoading] = useState(true);
 
     /* =========================
        AUTH CHECK
@@ -35,7 +42,49 @@ export default function CreateBlog() {
     }, [navigate]);
 
     /* =========================
-       CREATE POST
+       FETCH POST
+    ========================= */
+
+    useEffect(() => {
+
+        const fetchPost = async () => {
+
+            try {
+
+                const response = await fetch(
+
+                    `http://localhost:5000/api/posts/${id}`
+
+                );
+
+                const data = await response.json();
+
+                setTitle(data.title || "");
+
+                setCategory(data.category || "");
+
+                setDescription(data.description || "");
+
+                setContent(data.content || "");
+
+            } catch (err) {
+
+                console.log(err);
+
+            } finally {
+
+                setLoading(false);
+
+            }
+
+        };
+
+        fetchPost();
+
+    }, [id]);
+
+    /* =========================
+       UPDATE POST
     ========================= */
 
     const handleSubmit = async (e) => {
@@ -48,11 +97,11 @@ export default function CreateBlog() {
 
             const response = await fetch(
 
-                "http://localhost:5000/api/posts",
+                `http://localhost:5000/api/posts/${id}`,
 
                 {
 
-                    method: "POST",
+                    method: "PUT",
 
                     headers: {
 
@@ -88,9 +137,7 @@ export default function CreateBlog() {
 
             }
 
-            /* REDIRECT TO CREATED POST */
-
-            navigate(`/posts/${data._id}`);
+            navigate(`/posts/${id}`);
 
         } catch (err) {
 
@@ -99,6 +146,24 @@ export default function CreateBlog() {
         }
 
     };
+
+    /* =========================
+       LOADING
+    ========================= */
+
+    if (loading) {
+
+        return (
+
+            <Layout>
+
+                <h1>Loading...</h1>
+
+            </Layout>
+
+        );
+
+    }
 
     return (
 
@@ -111,7 +176,7 @@ export default function CreateBlog() {
                     onSubmit={handleSubmit}
                 >
 
-                    <h1>Create Post</h1>
+                    <h1>Edit Post</h1>
 
                     <input
                         type="text"
@@ -153,7 +218,7 @@ export default function CreateBlog() {
 
                     <button type="submit">
 
-                        Create Post
+                        Update Post
 
                     </button>
 

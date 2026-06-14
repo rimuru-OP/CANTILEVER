@@ -10,12 +10,13 @@ export default function PostCard({ post }) {
         >
 
             <div className="post-card">
-
-                <img
-                    src={post.image}
-                    alt={post.title}
-                    className="post-image"
-                />
+                {
+                    post.image && <img
+                        src={post.image}
+                        alt={post.title}
+                        className="post-image"
+                    />
+                }
 
                 <div className="post-content">
 

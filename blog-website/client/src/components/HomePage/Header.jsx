@@ -2,7 +2,9 @@ import "../../stylesheets/Header.css";
 import {Link} from "react-router-dom";
 const logoUrl = new URL("../../assets/logo.png", import.meta.url).href;
 import SearchBar from "./SearchBar.jsx";
-export default function Header(){
+
+export default function Header(){  
+    const user = JSON.parse(localStorage.getItem("user"));
     return (
         <header className="header">
             <div className="logo-container">
@@ -21,15 +23,45 @@ export default function Header(){
                 <SearchBar />
             </div>
 
-            <div className="auth-links">
-                <Link to="/login" className="login-btn">
-                    Login
-                </Link>
-
-                <Link to="/register" className="register-btn">
-                    Register
-                </Link>
-            </div>
+            {
+                user ? (
+                    <div className="header-user">
+                        <div className="profile-circle">
+                            {
+                                user.username
+                                    .charAt(0)
+                                    .toUpperCase()
+                            }
+                        </div>
+                        <span className="header-username">
+                            {user.username}
+                        </span>
+                        <button
+                            className="logout-btn"
+                            onClick={() => {
+                                localStorage.removeItem("token");
+                                localStorage.removeItem("user");
+                                window.location.reload();
+                            }}
+                        >Logout</button>
+                    </div>
+                ) : (
+                    <div className="auth-links">
+                        <Link
+                            to="/login"
+                            className="login-btn"
+                        >
+                            Login
+                        </Link>
+                        <Link
+                            to="/register"
+                            className="register-btn"
+                        >
+                            Register
+                        </Link>
+                    </div>
+                )
+            }
         </header>
     )
 }
