@@ -8,7 +8,9 @@ export default function CreateBlog() {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [category, setCategory] = useState("");
-
+    const [author, setAuthor] = useState("");
+    const [description, setDescription] = useState("");
+    
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
@@ -17,8 +19,11 @@ export default function CreateBlog() {
         const newPost = {
             id: Date.now(),
             title,
-            content,
             category,
+            author,
+            description,
+            content,
+            date: new Date().toLocaleDateString(),
         };
 
         const existingPosts = JSON.parse(localStorage.getItem("posts")) || [];
@@ -29,7 +34,7 @@ export default function CreateBlog() {
             "posts",
             JSON.stringify(existingPosts)
         );
-
+        
         navigate("/posts");
    };
 
@@ -52,6 +57,18 @@ export default function CreateBlog() {
                         placeholder="Category"
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
+                    />
+                    <input
+                        type="text"
+                        placeholder="Author"
+                        value={author}
+                        onChange={(e) => setAuthor(e.target.value)}
+                    />
+
+                    <textarea
+                        placeholder="Short Description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
                     />
                     <textarea
                         placeholder="Content"

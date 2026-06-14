@@ -2,10 +2,12 @@ import "../stylesheets/BlogPost.css";
 
 import { useParams } from "react-router-dom";
 import Layout from "../components/Layout.jsx";
-import posts from "../data/PostData.js";
+import PostData from "../data/PostData.js";
 
 export default function BlogPost() {
-
+    const savedPosts =  JSON.parse(localStorage.getItem("posts")) || [];
+    const posts = [...PostData, ...savedPosts];
+    
     const { id } = useParams();
 
     const post = posts.find(
