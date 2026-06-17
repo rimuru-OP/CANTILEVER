@@ -28,8 +28,7 @@ export default function PostsPage() {
         return <h1>Loading...</h1>
     }
     return (
-        <>
-            <Layout>
+        <Layout>
             <section className="posts-page">
                 {/* HERO */}
                 <div className="posts-hero">
@@ -51,7 +50,6 @@ export default function PostsPage() {
                     }
                 </div>
             </section>
-            </Layout>
-        </>
+        </Layout>
     );
 }

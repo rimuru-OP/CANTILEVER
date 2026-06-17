@@ -28,7 +28,7 @@ export default function PostCard({ post }) {
 
                         <span>{post.author}</span>
 
-                        <span>{post.date}</span>
+                        <span>{new Date(post.createdAt).toLocaleDateString()}</span>
 
                     </div>
 

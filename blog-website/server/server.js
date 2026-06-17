@@ -13,7 +13,7 @@ mongoose.connect(process.env.MONGO_URI)
     
 const app = express();
 
-app.use(cors());
+app.use(cors({origin : process.env.CLIENT_URL}));
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
