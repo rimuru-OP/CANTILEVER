@@ -12,8 +12,11 @@ const createPost = async (req, res) => {
             category,
             description,
             content,
-            image,
         } = req.body;
+
+        const image = req.file
+            ? `/uploads/${req.file.filename}`
+            : "";
 
         const post = new Post({
             title,

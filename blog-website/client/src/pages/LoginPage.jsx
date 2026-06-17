@@ -8,10 +8,6 @@ import API from "../api.js";
 export default function LoginPage() {
 
     const navigate = useNavigate();
-
-    // FIX: Now uses AuthContext.login() instead of writing to
-    // localStorage directly. This keeps Header in sync without
-    // a page reload.
     const { login } = useAuth();
 
     const [formData, setFormData] = useState({
@@ -49,7 +45,7 @@ export default function LoginPage() {
             }
 
             login(data.user, data.token);
-            navigate("/");
+            navigate("/", { replace: true });
 
         } catch (err) {
 

@@ -1,5 +1,5 @@
 import "../stylesheets/BlogPost.css";
-
+import API from "../api.js";
 import { useEffect, useState } from "react";
 
 import {
@@ -21,7 +21,7 @@ export default function BlogPost() {
     const [loading, setLoading] = useState(true);
 
     const loggedInUser = JSON.parse(
-        localStorage.getItem("user")
+        localStorage.getItem("user") || "null"
     );
 
     /* =========================
@@ -35,9 +35,7 @@ export default function BlogPost() {
             try {
 
                 const response = await fetch(
-
-                    `http://localhost:5000/api/posts/${id}`
-
+                    `${API}/api/posts/${id}`
                 );
 
                 const data = await response.json();
@@ -111,11 +109,8 @@ export default function BlogPost() {
        OWNERSHIP CHECK
     ========================= */
 
-    const isOwner =
-
-        loggedInUser &&
-
-        loggedInUser.id === post.user;
+    const isOwner = loggedInUser && 
+        (loggedInUser.id === post.user || loggedInUser.id === post.user?._id);
 
     /* =========================
        DELETE POST
@@ -136,21 +131,13 @@ export default function BlogPost() {
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-
-                `http://localhost:5000/api/posts/${id}`,
-
+                `${API}/api/posts/${id}`,
                 {
-
                     method: "DELETE",
-
                     headers: {
-
                         Authorization: `Bearer ${token}`,
-
                     },
-
                 }
-
             );
 
             const data = await response.json();
@@ -271,14 +258,9 @@ export default function BlogPost() {
                     <div className="blog-text">
 
                         {
-                            post.content
-                                .split("\n")
-                                .filter(
-
+                            post.content?.split("\n").filter(
                                     (paragraph) =>
-
                                         paragraph.trim() !== ""
-
                                 )
                                 .map((paragraph, index) => (
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import API from "../../api.js";
 import PostCard from "../PostCard.jsx";
 
 export default function LatestPosts() {
@@ -16,12 +16,12 @@ export default function LatestPosts() {
             try {
 
                 const response = await fetch(
-                    "http://localhost:5000/api/posts"
+                    `${API}/api/posts`
                 );
 
                 const data = await response.json();
 
-                setPosts(data);
+                setPosts(Array.isArray(data) ? data : []);
 
             } catch (error) {
 
@@ -42,8 +42,12 @@ export default function LatestPosts() {
     //loading
     if (loading) {
 
-        return <h1>Loading...</h1>;
-
+        return (
+            <section className="latest-posts">
+                <h2>Latest Posts</h2>
+                <p>Loading posts...</p>
+            </section>
+        );
     }
 
     return (
