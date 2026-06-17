@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Post = require("../models/Post.js");
 const protect = require("../middleware/authMiddleware.js");
+const {body, validationResult} = require('express-validator');
 const {
     createPost,
     deletePost,
@@ -41,7 +42,14 @@ router.get("/:id", async (req, res) => {
 })
 
 //create post
-router.post("/", protect, createPost);
+router.post("/", protect,
+    [
+        body('title').trim().notEmpty().isLength({ max: 200 }),
+        body('content').notEmpty(),
+        body('category').trim().notEmpty(),
+        body('image').optional().isURL(),
+    ]
+    ,createPost);
 
 //delete post
 router.delete("/:id", protect, deletePost);

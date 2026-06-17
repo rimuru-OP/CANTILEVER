@@ -2,21 +2,28 @@ import { Link } from "react-router-dom";
 
 export default function PostCard({ post }) {
 
-    return (
+    // FIX: was post.date which is undefined for API posts —
+    // MongoDB returns createdAt (a timestamp), not a "date" field.
+    const formattedDate = post.createdAt
+        ? new Date(post.createdAt).toLocaleDateString("en-US", {
+              month: "long",
+              day:   "numeric",
+              year:  "numeric",
+          })
+        : "";
 
-        <Link
-            to={`/posts/${post._id}`}
-            className="post-link"
-        >
+    return (
+        <Link to={`/posts/${post._id}`} className="post-link">
 
             <div className="post-card">
-                {
-                    post.image && <img
+
+                {post.image && (
+                    <img
                         src={post.image}
                         alt={post.title}
                         className="post-image"
                     />
-                }
+                )}
 
                 <div className="post-content">
 
@@ -25,11 +32,8 @@ export default function PostCard({ post }) {
                     <p>{post.description}</p>
 
                     <div className="post-meta">
-
                         <span>{post.author}</span>
-
-                        <span>{new Date(post.createdAt).toLocaleDateString()}</span>
-
+                        <span>{formattedDate}</span>
                     </div>
 
                 </div>
@@ -37,6 +41,5 @@ export default function PostCard({ post }) {
             </div>
 
         </Link>
-
     );
 }

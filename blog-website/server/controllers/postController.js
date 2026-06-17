@@ -1,5 +1,8 @@
 const Post = require("../models/Post");
 
+/* =========================
+   CREATE POST
+========================= */
 const createPost = async (req, res) => {
 
     try {
@@ -13,21 +16,13 @@ const createPost = async (req, res) => {
         } = req.body;
 
         const post = new Post({
-
             title,
-
             category,
-
             description,
-
             content,
-
             image,
-
             user: req.user._id,
-
             author: req.user.username,
-
         });
 
         const createdPost = await post.save();
@@ -44,38 +39,31 @@ const createPost = async (req, res) => {
 
 };
 
-//delete post
+/* =========================
+   DELETE POST
+========================= */
+// FIX: removed the entire second copy of deletePost that was
+// incorrectly nested inside this function after the try/catch block.
 const deletePost = async (req, res) => {
 
     try {
 
-        const post = await Post.findById(
-            req.params.id
-        );
+        const post = await Post.findById(req.params.id);
 
         /* CHECK POST */
 
         if (!post) {
-
             return res.status(404).json({
                 message: "Post not found",
             });
-
         }
 
         /* CHECK OWNERSHIP */
 
-        if (
-
-            post.user.toString() !==
-            req.user._id.toString()
-
-        ) {
-
+        if (post.user.toString() !== req.user._id.toString()) {
             return res.status(401).json({
                 message: "Not authorized",
             });
-
         }
 
         /* DELETE */
@@ -91,60 +79,43 @@ const deletePost = async (req, res) => {
         res.status(500).json({
             message: err.message,
         });
+
     }
+
 };
 
-//update post
-
+/* =========================
+   UPDATE POST
+========================= */
 const updatePost = async (req, res) => {
 
     try {
 
-        const post = await Post.findById(
-            req.params.id
-        );
+        const post = await Post.findById(req.params.id);
 
         /* CHECK POST */
 
         if (!post) {
-
             return res.status(404).json({
                 message: "Post not found",
             });
-
         }
 
         /* CHECK OWNERSHIP */
 
-        if (
-
-            post.user.toString() !==
-            req.user._id.toString()
-
-        ) {
-
+        if (post.user.toString() !== req.user._id.toString()) {
             return res.status(401).json({
                 message: "Not authorized",
             });
-
         }
 
         /* UPDATE FIELDS */
 
-        post.title =
-            req.body.title || post.title;
-
-        post.category =
-            req.body.category || post.category;
-
-        post.description =
-            req.body.description || post.description;
-
-        post.content =
-            req.body.content || post.content;
-
-        post.image =
-            req.body.image || post.image;
+        post.title       = req.body.title       || post.title;
+        post.category    = req.body.category    || post.category;
+        post.description = req.body.description || post.description;
+        post.content     = req.body.content     || post.content;
+        post.image       = req.body.image       || post.image;
 
         /* SAVE */
 
@@ -161,6 +132,7 @@ const updatePost = async (req, res) => {
     }
 
 };
+
 module.exports = {
     createPost,
     deletePost,

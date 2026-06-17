@@ -1,11 +1,18 @@
 import "../stylesheets/Auth.css";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Layout from "../components/Layout.jsx";
+import { useAuth } from "../context/AuthContext.jsx";
+import API from "../api.js";
 
 export default function LoginPage() {
 
     const navigate = useNavigate();
+
+    // FIX: Now uses AuthContext.login() instead of writing to
+    // localStorage directly. This keeps Header in sync without
+    // a page reload.
+    const { login } = useAuth();
 
     const [formData, setFormData] = useState({
         email: "",
@@ -13,85 +20,58 @@ export default function LoginPage() {
     });
 
     const [error, setError] = useState("");
-
-    //handling changes
+    const [submitting, setSubmitting] = useState(false);
 
     const handleChange = (e) => {
-
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
-
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-
-    //submit
 
     const handleSubmit = async (e) => {
 
         e.preventDefault();
         setError("");
+        setSubmitting(true);
+
         try {
 
-            const response = await fetch(
-                "http://localhost:5000/api/auth/login",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(formData),
-                }
-            );
+            // FIX: was hardcoded "http://localhost:5000".
+            const response = await fetch(`${API}/api/auth/login`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            });
 
             const data = await response.json();
-
-            // fail login
 
             if (!response.ok) {
                 setError(data.message);
                 return;
             }
 
-            //save TOKEN jwt auth
-
-            localStorage.setItem(
-                "token",
-                data.token
-            );
-
-            localStorage.setItem(
-                "user",
-                JSON.stringify(data.user)
-            );
-
-            //redirect
-
+            login(data.user, data.token);
             navigate("/");
-        
+
         } catch (err) {
-            setError("Something went wrong");
+
+            setError("Something went wrong. Please try again.");
+
+        } finally {
+
+            setSubmitting(false);
+
         }
 
     };
 
     return (
-
         <Layout>
             <section className="auth-page">
-                <form
-                    className="auth-form"
-                    onSubmit={handleSubmit}
-                >
+                <form className="auth-form" onSubmit={handleSubmit}>
+
                     <h1>Login</h1>
-                    {
-                        error && (
-                            <p className="auth-error">
-                                {error}
-                            </p>
-                        )
-                    }
-                    
+
+                    {error && <p className="auth-error">{error}</p>}
+
                     <input
                         type="email"
                         name="email"
@@ -110,18 +90,17 @@ export default function LoginPage() {
                         required
                     />
 
-                    <button type="submit">
-
-                        Login
-
+                    <button type="submit" disabled={submitting}>
+                        {submitting ? "Logging in..." : "Login"}
                     </button>
 
+                    <p style={{ textAlign: "center", marginTop: "1rem" }}>
+                        Don't have an account?{" "}
+                        <Link to="/register">Register</Link>
+                    </p>
+
                 </form>
-
             </section>
-
         </Layout>
-
     );
-
 }

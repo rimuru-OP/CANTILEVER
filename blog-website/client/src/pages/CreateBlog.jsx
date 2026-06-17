@@ -1,125 +1,98 @@
 import "../stylesheets/CreateBlog.css";
-
-import { useState, useEffect } from "react";
-
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import Layout from "../components/Layout.jsx";
+import API from "../api.js";
+
+// FIX 1: Removed the useEffect auth check:
+//
+//   useEffect(() => {
+//       const token = localStorage.getItem("token");
+//       if (!token) navigate("/login");
+//   }, [navigate]);
+//
+// This is now handled by <ProtectedRoute> in App.jsx which
+// redirects before this component even mounts.
+//
+// FIX 2: Replaced hardcoded "http://localhost:5000" with API constant.
 
 export default function CreateBlog() {
 
-    const [title, setTitle] = useState("");
-
-    const [content, setContent] = useState("");
-
-    const [category, setCategory] = useState("");
-
+    const [title,       setTitle]       = useState("");
+    const [content,     setContent]     = useState("");
+    const [category,    setCategory]    = useState("");
     const [description, setDescription] = useState("");
+    const [error,       setError]       = useState("");
+    const [submitting,  setSubmitting]  = useState(false);
 
     const navigate = useNavigate();
 
     /* =========================
-       AUTH CHECK
-    ========================= */
-
-    useEffect(() => {
-
-        const token = localStorage.getItem("token");
-
-        if (!token) {
-
-            navigate("/login");
-
-        }
-
-    }, [navigate]);
-
-    /* =========================
        CREATE POST
     ========================= */
-
     const handleSubmit = async (e) => {
 
         e.preventDefault();
+        setError("");
+        setSubmitting(true);
 
         try {
 
             const token = localStorage.getItem("token");
 
-            const response = await fetch(
-
-                "http://localhost:5000/api/posts",
-
-                {
-
-                    method: "POST",
-
-                    headers: {
-
-                        "Content-Type": "application/json",
-
-                        Authorization: `Bearer ${token}`,
-
-                    },
-
-                    body: JSON.stringify({
-
-                        title,
-
-                        category,
-
-                        description,
-
-                        content,
-
-                    }),
-
-                }
-
-            );
+            const response = await fetch(`${API}/api/posts`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    title,
+                    category,
+                    description,
+                    content,
+                }),
+            });
 
             const data = await response.json();
 
             if (!response.ok) {
-
-                console.log(data.message);
-
+                setError(data.message || "Failed to create post.");
                 return;
-
             }
-
-            /* REDIRECT TO CREATED POST */
 
             navigate(`/posts/${data._id}`);
 
         } catch (err) {
 
-            console.log(err);
+            setError("Something went wrong. Please try again.");
+
+        } finally {
+
+            setSubmitting(false);
 
         }
 
     };
 
     return (
-
         <Layout>
-
             <div className="create-page">
-
-                <form
-                    className="create-form"
-                    onSubmit={handleSubmit}
-                >
+                <form className="create-form" onSubmit={handleSubmit}>
 
                     <h1>Create Post</h1>
+
+                    {error && (
+                        <p style={{ color: "red", marginBottom: "1rem" }}>
+                            {error}
+                        </p>
+                    )}
 
                     <input
                         type="text"
                         placeholder="Title"
                         value={title}
-                        onChange={(e) =>
-                            setTitle(e.target.value)
-                        }
+                        onChange={(e) => setTitle(e.target.value)}
                         required
                     />
 
@@ -127,42 +100,30 @@ export default function CreateBlog() {
                         type="text"
                         placeholder="Category"
                         value={category}
-                        onChange={(e) =>
-                            setCategory(e.target.value)
-                        }
+                        onChange={(e) => setCategory(e.target.value)}
                         required
                     />
 
                     <textarea
                         placeholder="Short Description"
                         value={description}
-                        onChange={(e) =>
-                            setDescription(e.target.value)
-                        }
+                        onChange={(e) => setDescription(e.target.value)}
                         required
                     />
 
                     <textarea
                         placeholder="Content"
                         value={content}
-                        onChange={(e) =>
-                            setContent(e.target.value)
-                        }
+                        onChange={(e) => setContent(e.target.value)}
                         required
                     />
 
-                    <button type="submit">
-
-                        Create Post
-
+                    <button type="submit" disabled={submitting}>
+                        {submitting ? "Publishing..." : "Create Post"}
                     </button>
 
                 </form>
-
             </div>
-
         </Layout>
-
     );
-
 }
