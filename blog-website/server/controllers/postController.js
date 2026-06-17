@@ -118,7 +118,9 @@ const updatePost = async (req, res) => {
         post.category    = req.body.category    || post.category;
         post.description = req.body.description || post.description;
         post.content     = req.body.content     || post.content;
-        post.image       = req.body.image       || post.image;
+        if(req.file){
+            post.image = `/uploads/${req.file.filename}`;
+        }
 
         /* SAVE */
 

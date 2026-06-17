@@ -57,5 +57,10 @@ router.post("/", protect,
 router.delete("/:id", protect, deletePost);
 
 //update post
-router.put("/:id", protect, updatePost);
+router.put(
+    "/:id",
+    protect,
+    upload.single("image"),
+    updatePost,
+);
 module.exports = router;
