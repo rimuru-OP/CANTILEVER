@@ -7,11 +7,7 @@ const postRoutes = require("./routes/postRoutes");
 
 dotenv.config();
 
-/* =========================
-   ENV GUARDS
-   Crash fast and loud if critical env vars are missing
-   instead of failing silently at runtime.
-========================= */
+
 if (!process.env.JWT_SECRET) {
     console.error("FATAL: JWT_SECRET is not set in .env");
     process.exit(1);
@@ -39,12 +35,9 @@ const app = express();
    MIDDLEWARE
 ========================= */
 
-// FIX: was app.use(cors()) which allows every origin.
-// Now restricted to CLIENT_URL in production, falls back
-// to localhost:5173 for local dev so nothing breaks.
 app.use(
     cors({
-        origin: process.env.CLIENT_URL || "http://localhost:5173",
+        origin: "http://localhost:1234",
         credentials: true,
     })
 );
@@ -64,7 +57,7 @@ app.get("/", (req, res) => {
 /* =========================
    START
 ========================= */
-// FIX: was hardcoded 5000. Read from .env so it's configurable.
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {

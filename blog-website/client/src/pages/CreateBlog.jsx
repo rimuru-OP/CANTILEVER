@@ -4,17 +4,6 @@ import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout.jsx";
 import API from "../api.js";
 
-// FIX 1: Removed the useEffect auth check:
-//
-//   useEffect(() => {
-//       const token = localStorage.getItem("token");
-//       if (!token) navigate("/login");
-//   }, [navigate]);
-//
-// This is now handled by <ProtectedRoute> in App.jsx which
-// redirects before this component even mounts.
-//
-// FIX 2: Replaced hardcoded "http://localhost:5000" with API constant.
 
 export default function CreateBlog() {
 

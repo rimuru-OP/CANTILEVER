@@ -62,8 +62,6 @@ export default function PostsPage() {
         );
     }
 
-    // FIX: was wrapped in an extra <> fragment around <Layout>.
-    // Layout is already the single root — the fragment was pointless.
     return (
         <Layout>
             <section className="posts-page">
