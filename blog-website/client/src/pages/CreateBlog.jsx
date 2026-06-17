@@ -13,7 +13,7 @@ export default function CreateBlog() {
     const [description, setDescription] = useState("");
     const [error,       setError]       = useState("");
     const [submitting,  setSubmitting]  = useState(false);
-
+    const [image, setImage] = useState(null);
     const navigate = useNavigate();
 
     /* =========================
@@ -28,19 +28,24 @@ export default function CreateBlog() {
         try {
 
             const token = localStorage.getItem("token");
+            const postData = new FormData();
 
+            postData.append("title", title);
+            postData.append("category", category);
+            postData.append("description", description);
+            postData.append("content", content);
+
+            if(image){
+
+                postData.append("image", image);
+
+            }
             const response = await fetch(`${API}/api/posts`, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify({
-                    title,
-                    category,
-                    description,
-                    content,
-                }),
+                body: postData,
             });
 
             const data = await response.json();
@@ -107,6 +112,11 @@ export default function CreateBlog() {
                         required
                     />
 
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => setImage(e.target.files[0])}
+                    />
                     <button type="submit" disabled={submitting}>
                         {submitting ? "Publishing..." : "Create Post"}
                     </button>

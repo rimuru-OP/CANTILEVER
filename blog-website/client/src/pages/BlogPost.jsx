@@ -174,7 +174,7 @@ export default function BlogPost() {
                         <div className="blog-hero">
 
                             <img
-                                src={post.image}
+                                src={`${API}${post.image}`}
                                 alt={post.title}
                                 className="blog-image"
                             />
