@@ -2,8 +2,7 @@ import "../../stylesheets/Header.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
 import SearchBar from "./SearchBar.jsx";
-
-const logoUrl = new URL("../../assets/logo.png", import.meta.url).href;
+import logoUrl from "../../assets/logo.png";
 
 export default function Header() {
 
