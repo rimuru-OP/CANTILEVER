@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import Layout from "../components/Layout.jsx";
 import PostCard from "../components/PostCard.jsx";
-import API from "../api.js";
 import { SkeletonCard } from "../components/Skeleton.jsx";
+import { apiFetch } from "../apiFetch.js";
 
 export default function PostsPage() {
 
@@ -31,7 +31,7 @@ export default function PostsPage() {
                     ...(searchQuery && { search: searchQuery }),
                 });
 
-                const response = await fetch(`${API}/api/posts?${params}`);
+                const response = await apiFetch(`/api/posts?${params}`);
                 const data = await response.json();
                 setPosts(data.posts);
                 setTotalPages(data.totalPages);
