@@ -4,6 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import Layout from "../components/Layout.jsx";
 import RichTextEditor from "../components/RichTextEditor.jsx";
 import API from "../api.js";
+import { apiFetch } from "../apiFetch.js";
+import { SkeletonPost } from "../components/Skeleton.jsx";
 
 export default function EditBlog() {
 
@@ -25,7 +27,7 @@ export default function EditBlog() {
 
         const fetchPost = async () => {
             try {
-                const response = await fetch(`${API}/api/posts/${id}`);
+                const response = await apiFetch(`/api/posts/${id}`);
                 const data = await response.json();
                 setTitle(data.title       || "");
                 setContent(data.content   || "");
@@ -57,7 +59,6 @@ export default function EditBlog() {
 
         try {
 
-            const token = localStorage.getItem("token");
             const postData = new FormData();
 
             postData.append("title",       title);
@@ -67,9 +68,8 @@ export default function EditBlog() {
 
             if (image) postData.append("image", image);
 
-            const response = await fetch(`${API}/api/posts/${id}`, {
+            const response = await apiFetch(`/api/posts/${id}`, {
                 method: "PUT",
-                headers: { Authorization: `Bearer ${token}` },
                 body: postData,
             });
 
@@ -97,7 +97,7 @@ export default function EditBlog() {
     if (loading) {
         return (
             <Layout>
-                <h1 style={{ textAlign: "center", padding: "4rem" }}>Loading...</h1>
+                <SkeletonPost />
             </Layout>
         );
     }

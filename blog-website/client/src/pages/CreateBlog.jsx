@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout.jsx";
 import RichTextEditor from "../components/RichTextEditor.jsx";
-import API from "../api.js";
+import { apiFetch } from "../apiFetch.js";
 
 export default function CreateBlog() {
 
@@ -31,7 +31,6 @@ export default function CreateBlog() {
 
         try {
 
-            const token = localStorage.getItem("token");
             const postData = new FormData();
 
             postData.append("title",       title);
@@ -41,9 +40,8 @@ export default function CreateBlog() {
 
             if (image) postData.append("image", image);
 
-            const response = await fetch(`${API}/api/posts`, {
+            const response = await apiFetch("/api/posts", {
                 method: "POST",
-                headers: { Authorization: `Bearer ${token}` },
                 body: postData,
             });
 

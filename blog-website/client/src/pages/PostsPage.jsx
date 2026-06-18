@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import Layout from "../components/Layout.jsx";
 import PostCard from "../components/PostCard.jsx";
 import API from "../api.js";
+import { SkeletonCard } from "../components/Skeleton.jsx";
 
 export default function PostsPage() {
 
@@ -48,9 +49,13 @@ export default function PostsPage() {
     if (loading) {
         return (
             <Layout>
-                <h1 style={{ textAlign: "center", padding: "4rem" }}>
-                    Loading...
-                </h1>
+                <section className="posts-page">
+                    <div className="posts-container">
+                        {[...Array(6)].map((_, i) => (
+                            <SkeletonCard key={i} />
+                        ))}
+                    </div>
+                </section>
             </Layout>
         );
     }

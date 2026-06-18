@@ -1,0 +1,35 @@
+@keyframes shimmer {
+    0%   { background-position: -600px 0; }
+    100% { background-position:  600px 0; }
+}
+
+.skeleton {
+    background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+    background-size: 600px 100%;
+    animation: shimmer 1.4s infinite linear;
+    border-radius: 6px;
+}
+
+.skeleton-card {
+    border: 1px solid #eee;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.skeleton-image  { width: 100%; height: 180px; }
+.skeleton-hero   { width: 100%; height: 320px; border-radius: 0; }
+.skeleton-heading{ height: 32px; width: 60%; margin: 1rem 0 .5rem; }
+.skeleton-title  { height: 22px; width: 80%; margin-bottom: .5rem; }
+.skeleton-tag    { height: 16px; width: 80px; margin-bottom: .75rem; }
+.skeleton-line   { height: 14px; width: 100%; margin-bottom: .5rem; }
+.skeleton-line.short { width: 60%; }
+
+.skeleton-body { padding: 1rem; display: flex; flex-direction: column; }
+
+.skeleton-post {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+}

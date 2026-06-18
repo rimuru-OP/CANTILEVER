@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import API from "../../api.js";
 import PostCard from "../PostCard.jsx";
+import { SkeletonCard } from "../Skeleton.jsx";
 
 export default function LatestPosts() {
 
@@ -31,7 +32,11 @@ export default function LatestPosts() {
         return (
             <section className="latest-posts">
                 <h2>Latest Posts</h2>
-                <p>Loading posts...</p>
+                <div className="posts-grid">
+                    {[...Array(4)].map((_, i) => (
+                        <SkeletonCard key={i} />
+                    ))}
+                </div>
             </section>
         );
     }

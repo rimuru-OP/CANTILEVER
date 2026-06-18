@@ -10,6 +10,8 @@ import {
 } from "react-router-dom";
 
 import Layout from "../components/Layout.jsx";
+import { SkeletonPost} from "../components/Skeleton.jsx";
+import { apiFetch } from "../apiFetch.js";
 
 export default function BlogPost() {
 
@@ -20,7 +22,7 @@ export default function BlogPost() {
     const [post, setPost] = useState(null);
 
     const [loading, setLoading] = useState(true);
-    
+
     const { user: loggedInUser } = useAuth();
 
     /* =========================
@@ -33,9 +35,7 @@ export default function BlogPost() {
 
             try {
 
-                const response = await fetch(
-                    `${API}/api/posts/${id}`
-                );
+                const response = await apiFetch(`/api/posts/${id}`);
 
                 const data = await response.json();
 
@@ -60,19 +60,12 @@ export default function BlogPost() {
     /* =========================
        LOADING
     ========================= */
-
     if (loading) {
-
         return (
-
             <Layout>
-
-                <h1>Loading...</h1>
-
+                <SkeletonPost />
             </Layout>
-
         );
-
     }
 
     /* =========================
@@ -127,17 +120,9 @@ export default function BlogPost() {
 
         try {
 
-            const token = localStorage.getItem("token");
-
-            const response = await fetch(
-                `${API}/api/posts/${id}`,
-                {
-                    method: "DELETE",
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
+            const response = await apiFetch(`/api/posts/${id}`, {
+                method: "DELETE",
+            });
 
             const data = await response.json();
 
