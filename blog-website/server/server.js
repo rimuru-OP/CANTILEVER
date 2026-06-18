@@ -4,9 +4,12 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const authRoutes = require("./routes/authRoutes/authRoutes");
 const postRoutes = require("./routes/postRoutes");
+const fs = require("fs");
 
 dotenv.config();
-
+if (!fs.existsSync("uploads")) {
+    fs.mkdirSync("uploads");
+}
 
 if (!process.env.JWT_SECRET) {
     console.error("FATAL: JWT_SECRET is not set in .env");
