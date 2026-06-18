@@ -14,12 +14,23 @@ const {
 // get all posts
 router.get("/", async (req, res) => {
     try {
-        const page  = parseInt(req.query.page)  || 1;
-        const limit = parseInt(req.query.limit) || 10;
-        const skip  = (page - 1) * limit;
+        const page   = parseInt(req.query.page)  || 1;
+        const limit  = parseInt(req.query.limit) || 10;
+        const skip   = (page - 1) * limit;
+        const search = req.query.search || "";
 
-        const total = await Post.countDocuments();
-        const posts = await Post.find()
+        const query = search
+            ? {
+                $or: [
+                    { title:       { $regex: search, $options: "i" } },
+                    { description: { $regex: search, $options: "i" } },
+                    { category:    { $regex: search, $options: "i" } },
+                ],
+              }
+            : {};
+
+        const total = await Post.countDocuments(query);
+        const posts = await Post.find(query)
             .sort({ createdAt: -1 })
             .skip(skip)
             .limit(limit);

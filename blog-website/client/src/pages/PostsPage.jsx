@@ -24,9 +24,13 @@ export default function PostsPage() {
         const fetchPosts = async () => {
             setLoading(true);
             try {
-                const response = await fetch(
-                    `${API}/api/posts?page=${currentPage}&limit=10`
-                );
+                const params = new URLSearchParams({
+                    page:  currentPage,
+                    limit: 10,
+                    ...(searchQuery && { search: searchQuery }),
+                });
+
+                const response = await fetch(`${API}/api/posts?${params}`);
                 const data = await response.json();
                 setPosts(data.posts);
                 setTotalPages(data.totalPages);
@@ -39,15 +43,7 @@ export default function PostsPage() {
 
         fetchPosts();
 
-    }, [currentPage]);
-
-    const displayedPosts = searchQuery
-        ? posts.filter((post) =>
-              post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-              post.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-              post.category.toLowerCase().includes(searchQuery.toLowerCase())
-          )
-        : posts;
+    }, [currentPage, searchQuery]);
 
     if (loading) {
         return (
@@ -69,14 +65,14 @@ export default function PostsPage() {
                     </h1>
                     <p>
                         {searchQuery
-                            ? `${displayedPosts.length} post${displayedPosts.length !== 1 ? "s" : ""} found`
+                            ? `${posts.length} post${posts.length !== 1 ? "s" : ""} found`
                             : "Discover stories, ideas, and insights from creators around the world."}
                     </p>
                 </div>
 
                 <div className="posts-container">
-                    {displayedPosts.length > 0 ? (
-                        displayedPosts.map((post) => (
+                    {posts.length > 0 ? (
+                        posts.map((post) => (
                             <PostCard key={post._id} post={post} />
                         ))
                     ) : (
@@ -86,7 +82,7 @@ export default function PostsPage() {
                     )}
                 </div>
 
-                {!searchQuery && totalPages > 1 && (
+                {!searchQuery && (
                     <div style={{ display: "flex", justifyContent: "center", gap: "1rem", padding: "2rem" }}>
                         <button
                             onClick={() => setCurrentPage((p) => p - 1)}
