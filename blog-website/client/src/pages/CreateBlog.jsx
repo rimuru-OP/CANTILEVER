@@ -2,8 +2,8 @@ import "../stylesheets/CreateBlog.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout.jsx";
+import RichTextEditor from "../components/RichTextEditor.jsx";
 import API from "../api.js";
-
 
 export default function CreateBlog() {
 
@@ -13,12 +13,16 @@ export default function CreateBlog() {
     const [description, setDescription] = useState("");
     const [error,       setError]       = useState("");
     const [submitting,  setSubmitting]  = useState(false);
-    const [image, setImage] = useState(null);
+    const [image,       setImage]       = useState(null);
+    const [preview,     setPreview]     = useState(null);
     const navigate = useNavigate();
 
-    /* =========================
-       CREATE POST
-    ========================= */
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        setImage(file);
+        setPreview(file ? URL.createObjectURL(file) : null);
+    };
+
     const handleSubmit = async (e) => {
 
         e.preventDefault();
@@ -30,21 +34,16 @@ export default function CreateBlog() {
             const token = localStorage.getItem("token");
             const postData = new FormData();
 
-            postData.append("title", title);
-            postData.append("category", category);
+            postData.append("title",       title);
+            postData.append("category",    category);
             postData.append("description", description);
-            postData.append("content", content);
+            postData.append("content",     content);
 
-            if(image){
+            if (image) postData.append("image", image);
 
-                postData.append("image", image);
-
-            }
             const response = await fetch(`${API}/api/posts`, {
                 method: "POST",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+                headers: { Authorization: `Bearer ${token}` },
                 body: postData,
             });
 
@@ -77,9 +76,7 @@ export default function CreateBlog() {
                     <h1>Create Post</h1>
 
                     {error && (
-                        <p style={{ color: "red", marginBottom: "1rem" }}>
-                            {error}
-                        </p>
+                        <p style={{ color: "red", marginBottom: "1rem" }}>{error}</p>
                     )}
 
                     <input
@@ -105,18 +102,25 @@ export default function CreateBlog() {
                         required
                     />
 
-                    <textarea
-                        placeholder="Content"
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        required
+                    <RichTextEditor
+                        content={content}
+                        onChange={setContent}
                     />
 
                     <input
                         type="file"
                         accept="image/*"
-                        onChange={(e) => setImage(e.target.files[0])}
+                        onChange={handleImageChange}
                     />
+
+                    {preview && (
+                        <img
+                            src={preview}
+                            alt="Preview"
+                            className="edit-preview-image"
+                        />
+                    )}
+
                     <button type="submit" disabled={submitting}>
                         {submitting ? "Publishing..." : "Create Post"}
                     </button>

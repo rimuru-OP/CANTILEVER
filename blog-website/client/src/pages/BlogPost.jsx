@@ -2,7 +2,7 @@ import "../stylesheets/BlogPost.css";
 import API from "../api.js";
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext.jsx";
-
+import DOMPurify from "dompurify";
 import {
     useParams,
     useNavigate,
@@ -20,10 +20,8 @@ export default function BlogPost() {
     const [post, setPost] = useState(null);
 
     const [loading, setLoading] = useState(true);
-
-    const loggedInUser = JSON.parse(
-        localStorage.getItem("user") || "null"
-    );
+    
+    const { user: loggedInUser } = useAuth();
 
     /* =========================
        FETCH POST
@@ -110,7 +108,7 @@ export default function BlogPost() {
        OWNERSHIP CHECK
     ========================= */
 
-    const { user: loggedInUser } = useAuth();
+    const isOwner = loggedInUser && post.user && loggedInUser._id === post.user.toString();
 
 
     /* =========================
@@ -256,26 +254,12 @@ export default function BlogPost() {
 
                     </p>
 
-                    <div className="blog-text">
-
-                        {
-                            post.content?.split("\n").filter(
-                                    (paragraph) =>
-                                        paragraph.trim() !== ""
-                                )
-                                .map((paragraph, index) => (
-
-                                    <p key={index}>
-
-                                        {paragraph}
-
-                                    </p>
-
-                                ))
-                        }
-
-                    </div>
-
+                    <div
+                        className="post-content"
+                        dangerouslySetInnerHTML={{
+                            __html: DOMPurify.sanitize(post.content),
+                        }}
+                    />
                 </div>
 
             </section>

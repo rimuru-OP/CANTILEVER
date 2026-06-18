@@ -123,3 +123,45 @@
 
     transform: translateY(-2px);
 }
+/*Rich Text Editor*/
+.rich-editor {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.rich-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    padding: 0.5rem;
+    border-bottom: 1px solid #ccc;
+    background: #f9f9f9;
+}
+
+.rich-toolbar button {
+    padding: 4px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.rich-toolbar button.active {
+    background: #333;
+    color: white;
+    border-color: #333;
+}
+
+.ProseMirror {
+    padding: 1rem;
+    min-height: 200px;
+    outline: none;
+}
+
+.ProseMirror p { margin: 0 0 0.75rem; }
+.ProseMirror h2 { font-size: 1.4rem; margin: 1rem 0 0.5rem; }
+.ProseMirror h3 { font-size: 1.2rem; margin: 1rem 0 0.5rem; }
+.ProseMirror ul, .ProseMirror ol { padding-left: 1.5rem; margin-bottom: 0.75rem; }
+.ProseMirror pre { background: #1e1e1e; color: #fff; padding: 1rem; border-radius: 6px; overflow-x: auto; }
