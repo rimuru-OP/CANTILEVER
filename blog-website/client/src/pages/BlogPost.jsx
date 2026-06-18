@@ -101,8 +101,7 @@ export default function BlogPost() {
        OWNERSHIP CHECK
     ========================= */
 
-    const isOwner = loggedInUser && post.user && loggedInUser._id === post.user.toString();
-
+    const isOwner = loggedInUser && post.user && (loggedInUser._id || loggedInUser.id) === post.user.toString();
 
     /* =========================
        DELETE POST
