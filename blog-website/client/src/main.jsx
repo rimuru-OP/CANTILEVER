@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
+import App from "./app.jsx";
 
 // FIX: StrictMode was missing. It catches common mistakes during
 // development (double-invoking effects, detecting deprecated APIs).
