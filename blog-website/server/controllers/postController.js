@@ -121,11 +121,12 @@ const updatePost = async (req, res) => {
         post.description = req.body.description || post.description;
         post.content     = req.body.content     || post.content;
         if(req.file){
+            if(post.image){
+                fs.unlink("." + post.image, (err) => { if (err) console.error(err);});
+            }
             post.image = `/uploads/${req.file.filename}`;
         }
-        if(req.file && post.image){
-            fs.unlink("." + post.image, (err) => { if (err) console.error(err);});
-        }
+        
         /* SAVE */
         const updatedPost = await post.save();
 
