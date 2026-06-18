@@ -188,8 +188,8 @@ export default function BlogPost() {
 
                             <span>
 
-                                {post.author}
-
+                                {post.user?.username}
+                                
                             </span>
 
                             <span>

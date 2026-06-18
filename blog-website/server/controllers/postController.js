@@ -29,7 +29,6 @@ const createPost = async (req, res) => {
             content,
             image,
             user: req.user._id,
-            author: req.user.username,
         });
 
         const createdPost = await post.save();

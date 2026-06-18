@@ -19,12 +19,6 @@ const postSchema = new mongoose.Schema(
             trim: true,
         },
 
-        author: {
-            type: String,
-            required: true,
-            trim: true,
-        },
-
         description: {
             type: String,
             required: true,

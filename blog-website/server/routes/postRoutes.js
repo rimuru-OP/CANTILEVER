@@ -31,6 +31,7 @@ router.get("/", async (req, res) => {
 
         const total = await Post.countDocuments(query);
         const posts = await Post.find(query)
+            .populate("user", "username")
             .sort({ createdAt: -1 })
             .skip(skip)
             .limit(limit);
@@ -51,7 +52,8 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
     try{
-        const post = await Post.findById(req.params.id);
+        const post = await Post.findById(req.params.id)
+            .populate("user", "username");
         if(!post){
             return res.status(404).json({
                 message: "post not found",
