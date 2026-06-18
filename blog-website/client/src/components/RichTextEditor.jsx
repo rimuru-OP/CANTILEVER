@@ -9,6 +9,9 @@ export default function RichTextEditor({ content, onChange }) {
         onUpdate({ editor }) {
             onChange(editor.getHTML());
         },
+        onSelectionUpdate({ editor }) {
+            onChange(editor.getHTML());
+        },
     });
 
     if (!editor) return null;
