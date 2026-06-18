@@ -18,6 +18,10 @@ if (!process.env.MONGO_URI) {
     process.exit(1);
 }
 
+if(!process.env.CLIENT_URL){
+    console.error("FATAL: CLIENT_URL not set in .env");
+    process.exit(1);
+}
 /* =========================
    DATABASE
 ========================= */

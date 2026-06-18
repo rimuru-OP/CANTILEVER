@@ -1,10 +1,14 @@
 const Post = require("../models/Post");
-
+const {validationResult} = require('express-validator');
+const fs = require('fs');
 /* =========================
    CREATE POST
 ========================= */
 const createPost = async (req, res) => {
-
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        return res.status(400).json({errors: errors.array()});
+    }
     try {
 
         const {
@@ -48,7 +52,7 @@ const createPost = async (req, res) => {
 // FIX: removed the entire second copy of deletePost that was
 // incorrectly nested inside this function after the try/catch block.
 const deletePost = async (req, res) => {
-
+    
     try {
 
         const post = await Post.findById(req.params.id);
@@ -70,7 +74,9 @@ const deletePost = async (req, res) => {
         }
 
         /* DELETE */
-
+        if(post.image){
+            fs.unlink("."+post.image, (err)=>{if(err)console.error(err);});
+        }
         await post.deleteOne();
 
         res.status(200).json({
@@ -78,11 +84,7 @@ const deletePost = async (req, res) => {
         });
 
     } catch (err) {
-
-        res.status(500).json({
-            message: err.message,
-        });
-
+        res.status(500).json({ message: "Server error" });
     }
 
 };
@@ -121,19 +123,16 @@ const updatePost = async (req, res) => {
         if(req.file){
             post.image = `/uploads/${req.file.filename}`;
         }
-
+        if(req.file && post.image){
+            fs.unlink("." + post.image, (err) => { if (err) console.error(err);});
+        }
         /* SAVE */
-
         const updatedPost = await post.save();
 
         res.status(200).json(updatedPost);
 
     } catch (err) {
-
-        res.status(500).json({
-            message: err.message,
-        });
-
+        res.status(500).json({ message: "Server error" });
     }
 
 };

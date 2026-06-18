@@ -1,6 +1,7 @@
 import "../stylesheets/BlogPost.css";
 import API from "../api.js";
 import { useEffect, useState } from "react";
+import { useAuth } from "../context/AuthContext.jsx";
 
 import {
     useParams,
@@ -109,8 +110,8 @@ export default function BlogPost() {
        OWNERSHIP CHECK
     ========================= */
 
-    const isOwner = loggedInUser && 
-        (loggedInUser.id === post.user || loggedInUser.id === post.user?._id);
+    const { user: loggedInUser } = useAuth();
+
 
     /* =========================
        DELETE POST
