@@ -12,15 +12,27 @@ const {
 } = require("../controllers/postController");
 
 // get all posts
-router.get("/", async (req, res)=>{
-    try{
-        const posts = await Post.find().sort({ createdAt: -1 });;
-        res.status(200).json(posts);
-    }
-    catch (error){
-        res.status(500).json({
-            message: error.message,
-        })
+router.get("/", async (req, res) => {
+    try {
+        const page  = parseInt(req.query.page)  || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const skip  = (page - 1) * limit;
+
+        const total = await Post.countDocuments();
+        const posts = await Post.find()
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limit);
+
+        res.status(200).json({
+            posts,
+            currentPage: page,
+            totalPages: Math.ceil(total / limit),
+            totalPosts: total,
+        });
+
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
 });
 
