@@ -2,7 +2,7 @@ import "../../stylesheets/Header.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
 import SearchBar from "./SearchBar.jsx";
-import logoUrl from "../../assets/logo.png";
+import logoUrl from "../../assets/Logo.png";
 
 export default function Header() {
 
