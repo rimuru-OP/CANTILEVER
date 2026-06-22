@@ -1,0 +1,75 @@
+.cta {
+  padding: 6rem 2rem;
+  background: #0f172a;
+  text-align: center;
+}
+
+.cta-inner {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.cta h2 {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+
+.cta h2 span {
+  color: #60a5fa;
+}
+
+.cta p {
+  font-size: 1.05rem;
+  color: #94a3b8;
+  line-height: 1.75;
+  margin-bottom: 2.25rem;
+}
+
+.cta-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.cta-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #2563eb;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.85rem 2rem;
+  border-radius: 10px;
+  transition: background 0.2s;
+}
+
+.cta-btn-primary:hover {
+  background: #1d4ed8;
+}
+
+.cta-btn-secondary {
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.85rem 2rem;
+  border-radius: 10px;
+  color: #cbd5e1;
+  border: 1px solid #334155;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.cta-btn-secondary:hover {
+  border-color: #475569;
+  color: #f1f5f9;
+}
+
+@media (max-width: 480px) {
+  .cta h2 { font-size: 1.9rem; }
+  .cta-buttons { flex-direction: column; width: 100%; max-width: 280px; margin: 0 auto; }
+  .cta-btn-primary, .cta-btn-secondary { justify-content: center; width: 100%; }
+}
