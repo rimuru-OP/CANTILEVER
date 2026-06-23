@@ -147,19 +147,12 @@
     border-radius: 10px;
     padding: 0.875rem;
     margin-bottom: 0.6rem;
-    cursor: grab;
     transition: box-shadow 0.2s, border-color 0.2s;
-    position: relative;
 }
 
 .task-card:hover {
     border-color: #bfdbfe;
     box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
-}
-
-.task-card.dragging {
-    opacity: 0.5;
-    cursor: grabbing;
 }
 
 .task-card-header {
@@ -176,6 +169,28 @@
     color: #0f172a;
     line-height: 1.4;
     flex: 1;
+}
+
+.task-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.task-edit {
+    background: none;
+    border: none;
+    color: #cbd5e1;
+    cursor: pointer;
+    font-size: 0.95rem;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.task-edit:hover {
+    color: #2563eb;
 }
 
 .task-delete {
@@ -206,6 +221,7 @@
     align-items: center;
     gap: 6px;
     flex-wrap: wrap;
+    margin-bottom: 0.6rem;
 }
 
 .priority-badge {
@@ -235,6 +251,38 @@
     color: #dc2626;
     background: #fef2f2;
     border-color: #fecaca;
+}
+
+/* Move buttons */
+.task-move {
+    display: flex;
+    gap: 6px;
+    margin-top: 0.6rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid #f1f5f9;
+}
+
+.move-btn {
+    flex: 1;
+    padding: 4px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.move-btn:hover:not(:disabled) {
+    background: #eff6ff;
+    border-color: #bfdbfe;
+    color: #2563eb;
+}
+
+.move-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
 }
 
 /* Modal */
@@ -351,19 +399,6 @@
     cursor: not-allowed;
 }
 
-.drag-handle {
-    color: #cbd5e1;
-    cursor: grab;
-    font-size: 1rem;
-    padding: 0 4px;
-    flex-shrink: 0;
-    user-select: none;
-}
-
-.drag-handle:active {
-    cursor: grabbing;
-}
-
 @media (max-width: 1024px) {
     .kanban-board {
         grid-template-columns: repeat(2, 1fr);
@@ -377,26 +412,4 @@
     .dashboard-body {
         padding: 1rem;
     }
-}
-
-.task-actions {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    flex-shrink: 0;
-}
-
-.task-edit {
-    background: none;
-    border: none;
-    color: #cbd5e1;
-    cursor: pointer;
-    font-size: 0.95rem;
-    padding: 0;
-    line-height: 1;
-    transition: color 0.2s;
-}
-
-.task-edit:hover {
-    color: #2563eb;
 }

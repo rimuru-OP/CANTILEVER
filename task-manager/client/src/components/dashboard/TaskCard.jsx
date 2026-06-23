@@ -1,43 +1,24 @@
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
-
-export default function TaskCard({ task, onDelete, onEdit }) {
-    const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
-        useSortable({ id: task._id });
-
-    const style = {
-        transform: CSS.Transform.toString(transform),
-        transition,
-    };
-
+export default function TaskCard({ task, onDelete, onEdit, onMove, isFirst, isLast }) {
     const isOverdue =
         task.dueDate &&
         new Date(task.dueDate) < new Date() &&
         task.status !== "done";
 
     return (
-        <div
-            ref={setNodeRef}
-            style={style}
-            className={`task-card ${isDragging ? "dragging" : ""}`}
-            {...attributes}
-            {...listeners}
-        >
+        <div className="task-card">
             <div className="task-card-header">
                 <span className="task-title">{task.title}</span>
                 <div className="task-actions">
                     <button
                         className="task-edit"
-                        onPointerDown={(e) => e.stopPropagation()}
-                        onClick={(e) => { e.stopPropagation(); onEdit(task); }}
+                        onClick={() => onEdit(task)}
                         title="Edit task"
                     >
                         ✎
                     </button>
                     <button
                         className="task-delete"
-                        onPointerDown={(e) => e.stopPropagation()}
-                        onClick={(e) => { e.stopPropagation(); onDelete(task._id); }}
+                        onClick={() => onDelete(task._id)}
                         title="Delete task"
                     >
                         ×
@@ -60,6 +41,24 @@ export default function TaskCard({ task, onDelete, onEdit }) {
                         })}
                     </span>
                 )}
+            </div>
+            <div className="task-move">
+                <button
+                    className="move-btn"
+                    onClick={() => onMove(task, "left")}
+                    disabled={isFirst}
+                    title="Move left"
+                >
+                    ←
+                </button>
+                <button
+                    className="move-btn"
+                    onClick={() => onMove(task, "right")}
+                    disabled={isLast}
+                    title="Move right"
+                >
+                    →
+                </button>
             </div>
         </div>
     );
