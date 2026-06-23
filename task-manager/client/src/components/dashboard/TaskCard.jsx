@@ -4,18 +4,22 @@ export default function TaskCard({ task, onDelete, onEdit, onMove, isFirst, isLa
         new Date(task.dueDate) < new Date() &&
         task.status !== "done";
 
+    const isCancelled = task.status === "cancelled";
+
     return (
-        <div className="task-card">
+        <div className={`task-card ${isCancelled ? "task-cancelled" : ""}`}>
             <div className="task-card-header">
                 <span className="task-title">{task.title}</span>
                 <div className="task-actions">
-                    <button
-                        className="task-edit"
-                        onClick={() => onEdit(task)}
-                        title="Edit task"
-                    >
-                        ✎
-                    </button>
+                    {!isCancelled && (
+                        <button
+                            className="task-edit"
+                            onClick={() => onEdit(task)}
+                            title="Edit task"
+                        >
+                            ✎
+                        </button>
+                    )}
                     <button
                         className="task-delete"
                         onClick={() => onDelete(task._id)}
