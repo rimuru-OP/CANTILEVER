@@ -17,7 +17,7 @@ const COLUMNS = [
     { id: "cancelled",   label: "Cancelled",   color: "#ef4444" },
 ];
 
-export default function KanbanBoard({ tasks, setTasks, onDelete, onUpdate }) {
+export default function KanbanBoard({ tasks, setTasks, onDelete, onUpdate, onEdit }) {
     const sensors = useSensors(
         useSensor(PointerSensor, { activationConstraint: { distance: 5 } })
     );
@@ -98,6 +98,7 @@ export default function KanbanBoard({ tasks, setTasks, onDelete, onUpdate }) {
                         column={col}
                         tasks={getColumnTasks(col.id)}
                         onDelete={onDelete}
+                        onEdit={onEdit}
                     />
                 ))}
             </div>
