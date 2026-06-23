@@ -20,13 +20,19 @@ export default function TaskCard({ task, onDelete, onEdit }) {
             ref={setNodeRef}
             style={style}
             className={`task-card ${isDragging ? "dragging" : ""}`}
-            {...attributes}
-            {...listeners}
         >
             <div className="task-card-header">
+                {/* drag handle */}
+                <span
+                    className="drag-handle"
+                    {...attributes}
+                    {...listeners}
+                >
+                    ⠿
+                </span>
                 <span
                     className="task-title"
-                    onClick={(e) => { e.stopPropagation(); onEdit(task); }}
+                    onClick={() => onEdit(task)}
                     style={{ cursor: "pointer" }}
                 >
                     {task.title}

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import DashboardHeader from "../components/dashboard/DashboardHeader";
-import KanbanBoard from "../components/dashboard/KanbanBoard";
-import AddTaskModal from "../components/dashboard/AddTaskModal";
-import { fetchTasks, createTask, updateTask, deleteTask } from "../services/taskService";
+import DashboardHeader from "../components/dashboard/DashboardHeader.jsx";
+import KanbanBoard from "../components/dashboard/KanbanBoard.jsx";
+import AddTaskModal from "../components/dashboard/AddTaskModal.jsx";
+import { fetchTasks, createTask, updateTask, deleteTask } from "../services/taskService.js";
 import "../styles/Dashboard.css";
 
 export default function Dashboard() {
