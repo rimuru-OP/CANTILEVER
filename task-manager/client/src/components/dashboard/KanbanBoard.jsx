@@ -18,8 +18,10 @@ const COLUMNS = [
 ];
 
 export default function KanbanBoard({ tasks, setTasks, onDelete, onUpdate, onEdit }) {
+    const [activeTask, setActiveTask] = useState(null);
+
     const sensors = useSensors(
-        useSensor(PointerSensor, { activationConstraint: { distance: 5 } })
+        useSensor(PointerSensor, { activationConstraint: { distance: 8 } })
     );
 
     function getColumnTasks(status) {
@@ -28,8 +30,6 @@ export default function KanbanBoard({ tasks, setTasks, onDelete, onUpdate, onEdi
             .sort((a, b) => a.order - b.order);
     }
 
-    const [activeTask, setActiveTask] = useState(null);
-
     function handleDragStart(event) {
         const task = tasks.find((t) => t._id === event.active.id);
         setActiveTask(task);
@@ -37,6 +37,7 @@ export default function KanbanBoard({ tasks, setTasks, onDelete, onUpdate, onEdi
 
     async function handleDragEnd(event) {
         const { active, over } = event;
+        setActiveTask(null);
         if (!over) return;
 
         const activeId = active.id;
@@ -47,11 +48,9 @@ export default function KanbanBoard({ tasks, setTasks, onDelete, onUpdate, onEdi
         const newStatus = overColumn
             ? overColumn.id
             : tasks.find((t) => t._id === overId)?.status;
-        
-        setActiveTask(null);
+
         if (!newStatus) return;
 
-        // Optimistic update
         setTasks((prev) => {
             const updated = prev.map((t) =>
                 t._id === activeId ? { ...t, status: newStatus } : t
@@ -76,7 +75,6 @@ export default function KanbanBoard({ tasks, setTasks, onDelete, onUpdate, onEdi
             });
         });
 
-        // Persist to server
         try {
             await onUpdate(activeId, { status: newStatus });
         } catch (err) {
@@ -99,6 +97,7 @@ export default function KanbanBoard({ tasks, setTasks, onDelete, onUpdate, onEdi
                         tasks={getColumnTasks(col.id)}
                         onDelete={onDelete}
                         onEdit={onEdit}
+                        isDraggingAny={activeTask !== null}
                     />
                 ))}
             </div>
