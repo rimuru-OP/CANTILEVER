@@ -28,6 +28,7 @@ export default function TaskCard({ task, onDelete, onEdit }) {
                 <div className="task-actions">
                     <button
                         className="task-edit"
+                        onPointerDown={(e) => e.stopPropagation()}
                         onClick={(e) => { e.stopPropagation(); onEdit(task); }}
                         title="Edit task"
                     >
@@ -35,6 +36,7 @@ export default function TaskCard({ task, onDelete, onEdit }) {
                     </button>
                     <button
                         className="task-delete"
+                        onPointerDown={(e) => e.stopPropagation()}
                         onClick={(e) => { e.stopPropagation(); onDelete(task._id); }}
                         title="Delete task"
                     >
