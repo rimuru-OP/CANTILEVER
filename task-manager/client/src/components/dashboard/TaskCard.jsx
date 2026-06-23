@@ -1,7 +1,7 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-export default function TaskCard({ task, onDelete, onEdit, wasDragging }) {
+export default function TaskCard({ task, onDelete, onEdit }) {
     const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
         useSortable({ id: task._id });
 
@@ -22,18 +22,25 @@ export default function TaskCard({ task, onDelete, onEdit, wasDragging }) {
             className={`task-card ${isDragging ? "dragging" : ""}`}
             {...attributes}
             {...listeners}
-            onClick={() => {
-                if (!wasDragging.current) onEdit(task);
-            }}
         >
             <div className="task-card-header">
                 <span className="task-title">{task.title}</span>
-                <button
-                    className="task-delete"
-                    onClick={(e) => { e.stopPropagation(); onDelete(task._id); }}
-                >
-                    ×
-                </button>
+                <div className="task-actions">
+                    <button
+                        className="task-edit"
+                        onClick={(e) => { e.stopPropagation(); onEdit(task); }}
+                        title="Edit task"
+                    >
+                        ✎
+                    </button>
+                    <button
+                        className="task-delete"
+                        onClick={(e) => { e.stopPropagation(); onDelete(task._id); }}
+                        title="Delete task"
+                    >
+                        ×
+                    </button>
+                </div>
             </div>
             {task.description && (
                 <p className="task-description">{task.description}</p>
