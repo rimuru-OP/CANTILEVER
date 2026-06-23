@@ -8,6 +8,7 @@ import {
 } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 import KanbanColumn from "./KanbanColumn";
+import { useState } from "react";
 
 const COLUMNS = [
     { id: "not_started", label: "Not Started", color: "#94a3b8" },
@@ -27,7 +28,12 @@ export default function KanbanBoard({ tasks, setTasks, onDelete, onUpdate }) {
             .sort((a, b) => a.order - b.order);
     }
 
-    function handleDragStart() {}
+    const [activeTask, setActiveTask] = useState(null);
+
+    function handleDragStart(event) {
+        const task = tasks.find((t) => t._id === event.active.id);
+        setActiveTask(task);
+    }
 
     async function handleDragEnd(event) {
         const { active, over } = event;
@@ -37,12 +43,12 @@ export default function KanbanBoard({ tasks, setTasks, onDelete, onUpdate }) {
         const overId = over.id;
         if (activeId === overId) return;
 
-        const activeTask = tasks.find((t) => t._id === activeId);
         const overColumn = COLUMNS.find((c) => c.id === overId);
         const newStatus = overColumn
             ? overColumn.id
             : tasks.find((t) => t._id === overId)?.status;
-
+        
+        setActiveTask(null);
         if (!newStatus) return;
 
         // Optimistic update
@@ -77,8 +83,6 @@ export default function KanbanBoard({ tasks, setTasks, onDelete, onUpdate }) {
             console.error("Failed to update task:", err);
         }
     }
-
-    const activeTask = null;
 
     return (
         <DndContext
