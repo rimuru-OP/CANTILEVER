@@ -1,7 +1,7 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-export default function TaskCard({ task, onDelete, onEdit, isDraggingAny }) {
+export default function TaskCard({ task, onDelete, onEdit, wasDragging }) {
     const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
         useSortable({ id: task._id });
 
@@ -23,7 +23,7 @@ export default function TaskCard({ task, onDelete, onEdit, isDraggingAny }) {
             {...attributes}
             {...listeners}
             onClick={() => {
-                if (!isDraggingAny) onEdit(task);
+                if (!wasDragging.current) onEdit(task);
             }}
         >
             <div className="task-card-header">

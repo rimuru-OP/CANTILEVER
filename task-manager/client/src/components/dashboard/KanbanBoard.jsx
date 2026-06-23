@@ -8,7 +8,7 @@ import {
 } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 import KanbanColumn from "./KanbanColumn";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const COLUMNS = [
     { id: "not_started", label: "Not Started", color: "#94a3b8" },
@@ -19,6 +19,7 @@ const COLUMNS = [
 
 export default function KanbanBoard({ tasks, setTasks, onDelete, onUpdate, onEdit }) {
     const [activeTask, setActiveTask] = useState(null);
+    const wasDragging = useRef(false);
 
     const sensors = useSensors(
         useSensor(PointerSensor, { activationConstraint: { distance: 8 } })
@@ -33,11 +34,16 @@ export default function KanbanBoard({ tasks, setTasks, onDelete, onUpdate, onEdi
     function handleDragStart(event) {
         const task = tasks.find((t) => t._id === event.active.id);
         setActiveTask(task);
+        wasDragging.current = true;
     }
 
     async function handleDragEnd(event) {
         const { active, over } = event;
         setActiveTask(null);
+
+        // keep wasDragging true briefly so the onClick on the card sees it
+        setTimeout(() => { wasDragging.current = false; }, 100);
+
         if (!over) return;
 
         const activeId = active.id;
@@ -97,7 +103,7 @@ export default function KanbanBoard({ tasks, setTasks, onDelete, onUpdate, onEdi
                         tasks={getColumnTasks(col.id)}
                         onDelete={onDelete}
                         onEdit={onEdit}
-                        isDraggingAny={activeTask !== null}
+                        wasDragging={wasDragging}
                     />
                 ))}
             </div>

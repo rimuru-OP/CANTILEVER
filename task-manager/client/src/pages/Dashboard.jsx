@@ -8,6 +8,7 @@ import "../styles/Dashboard.css";
 export default function Dashboard() {
     const [tasks, setTasks] = useState([]);
     const [showModal, setShowModal] = useState(false);
+    const [editingTask, setEditingTask] = useState(null);
 
     useEffect(() => {
         fetchTasks()
@@ -30,6 +31,15 @@ export default function Dashboard() {
         setTasks((prev) => prev.map((t) => (t._id === id ? updated : t)));
     }
 
+    function handleEditClick(task) {
+        setEditingTask(task);
+    }
+
+    function handleModalClose() {
+        setShowModal(false);
+        setEditingTask(null);
+    }
+
     return (
         <div className="dashboard">
             <DashboardHeader />
@@ -47,13 +57,16 @@ export default function Dashboard() {
                     setTasks={setTasks}
                     onDelete={handleDelete}
                     onUpdate={handleUpdate}
+                    onEdit={handleEditClick}
                 />
             </div>
 
-            {showModal && (
+            {(showModal || editingTask) && (
                 <AddTaskModal
-                    onClose={() => setShowModal(false)}
+                    onClose={handleModalClose}
                     onAdd={handleAddTask}
+                    onEdit={handleUpdate}
+                    task={editingTask}
                 />
             )}
         </div>
