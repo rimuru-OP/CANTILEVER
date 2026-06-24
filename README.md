@@ -1,177 +1,219 @@
-# 🚀 Cantilever Internship Projects
+# CANTILEVER
 
-This repository contains the projects completed as part of the **Cantilever Internship Program**.
-The objective of these projects is to demonstrate practical knowledge of **full-stack web development**, including frontend development, backend APIs, authentication, database integration, deployment, and responsive UI design.
+A small full-stack project collection built during the Cantilever internship journey.
 
----
+This repository currently contains **two separate MERN-style applications**:
 
-# 📌 Projects Included
-
-## 1️⃣ Blog Website
-
-A full-stack blogging platform where users can create and manage blog posts.
-
-### Features
-
-* User Authentication (Register/Login/Logout)
-* Create, Read, Update, Delete (CRUD) Blog Posts
-* Responsive UI Design
-* Backend API Integration
-* Database Support using MongoDB/Firebase
-* Deployment Support
-
-### Tech Stack
-
-* React.js
-* Node.js
-* Express.js
-* MongoDB / Firebase
-* JWT Authentication
+- **Blog Website** — a full-stack blogging platform with authentication, post management, image uploads, and a rich text editor.
+- **Task Manager** — a task management app with authentication, protected routes, and a dashboard workflow.
 
 ---
 
-## 2️⃣ Task Management System
+## Projects
 
-A task management application designed for organizing and tracking tasks efficiently.
+### 1) Blog Website
 
-### Features
+A blogging platform where authenticated users can create, edit, and delete posts, upload cover images, and browse posts with search and pagination.
 
-* User Authentication using JWT
-* CRUD Operations for Tasks
-* Task Filtering & Sorting
-* Responsive Design (Mobile + Desktop)
-* REST API Integration
-* Database Management
+**Highlights**
+- User registration and login with JWT
+- Create, update, delete, and read blog posts
+- Image upload support with Multer
+- Rich text editor for blog content
+- Search and pagination for posts
+- Protected routes for author actions
+- Responsive frontend UI
 
-### Tech Stack
-
-* React.js
-* Node.js
-* Express.js
-* MongoDB / Firebase
-* JWT Authentication
-
----
-
-# 🛠️ Tech Stack Used
-
-## Frontend
-
-* HTML5
-* CSS3
-* JavaScript
-* React.js
-
-## Backend
-
-* Node.js
-* Express.js
-
-## Database
-
-* MongoDB / Firebase
-
-## Authentication
-
-* JSON Web Tokens (JWT)
-
-## Deployment
-
-* Netlify
-* Heroku
+**Tech Stack**
+- React
+- Vite
+- React Router
+- TipTap
+- Node.js
+- Express
+- MongoDB / Mongoose
+- JWT
+- Multer
+- bcryptjs
 
 ---
 
-# 📂 Project Structure
+### 2) Task Manager
+
+A task management application with authentication and a protected dashboard for managing tasks.
+
+**Highlights**
+- User registration, login, logout, and session restoration
+- Protected dashboard route
+- Task create, update, delete, and list APIs
+- Cookie-based auth flow
+- Dashboard/kanban-style task workflow
+- Responsive frontend UI
+
+**Tech Stack**
+- React
+- Vite
+- React Router DOM
+- Node.js
+- Express
+- MongoDB / Mongoose
+- JWT
+- HTTP-only cookies
+- bcryptjs
+
+---
+
+## Repository Structure
 
 ```bash
-├── client/        # Frontend source code
-├── server/        # Backend source code
-└── README.md
+CANTILEVER/
+├── blog-website/
+│   ├── client/
+│   └── server/
+└── task-manager/
+    ├── client/
+    └── server/
 ```
 
 ---
 
-# ⚙️ Installation & Setup
+## Prerequisites
 
-## Clone the Repository
+Make sure you have the following installed:
 
-```bash
-git clone https://github.com/your-username/cantilever.git
-cd cantilever
-```
+- Node.js
+- npm
+- MongoDB connection string
+- A `.env` file for each backend
 
 ---
 
-## Install Dependencies
+## Blog Website Setup
 
-### Frontend
+### 1. Install dependencies
 
 ```bash
-cd client
+cd blog-website/client
+npm install
+
+cd ../server
 npm install
 ```
 
-### Backend
+### 2. Configure environment variables
 
-```bash
-cd server
-npm install
+Create `blog-website/server/.env`:
+
+```env
+MONGO_URI=your_mongodb_connection_string_here
+JWT_SECRET=your_jwt_secret_here
+PORT=5000
+CLIENT_URL=http://localhost:5173
 ```
 
----
-
-# ▶️ Run the Application
-
-## Start Frontend
+### 3. Run the backend
 
 ```bash
-npm start
-```
-
-## Start Backend
-
-```bash
+cd blog-website/server
 npm run dev
 ```
 
----
+### 4. Run the frontend
 
-# 🎯 Learning Objectives
+```bash
+cd blog-website/client
+npm run dev
+```
 
-* Build scalable full-stack applications
-* Understand authentication systems
-* Learn API development and database integration
-* Practice responsive web design
-* Gain experience with deployment workflows
-* Improve project structuring and clean coding practices
+### Blog API Endpoints
 
----
+**Auth**
+- `POST /api/auth/register`
+- `POST /api/auth/login`
 
-# 🌐 Deployment
-
-Frontend can be deployed on:
-
-* Netlify
-* Vercel
-
-Backend can be deployed on:
-
-* Heroku
-* Render
-* Railway
+**Posts**
+- `GET /api/posts`
+- `GET /api/posts/:id`
+- `POST /api/posts` *(protected, multipart/form-data)*
+- `PUT /api/posts/:id` *(protected, multipart/form-data)*
+- `DELETE /api/posts/:id` *(protected)*
 
 ---
 
-# 👨‍💻 Author
+## Task Manager Setup
 
-**Annany Thakur**
+### 1. Install dependencies
 
-* GitHub: https://github.com/rimuru-OP
-* LinkedIn: https://www.linkedin.com/in/annany-thakur-592823291
+```bash
+cd task-manager/client
+npm install
+
+cd ../server
+npm install
+```
+
+### 2. Configure environment variables
+
+Create `task-manager/server/.env`:
+
+```env
+MONGO_URI=your_mongodb_connection_string_here
+JWT_SECRET=your_jwt_secret_here
+PORT=5000
+CLIENT_URL=http://localhost:5173
+```
+
+Create `task-manager/client/.env`:
+
+```env
+VITE_API_URL=http://localhost:5000
+```
+
+### 3. Run the backend
+
+```bash
+cd task-manager/server
+npm run dev
+```
+
+### 4. Run the frontend
+
+```bash
+cd task-manager/client
+npm run dev
+```
+
+### Task API Endpoints
+
+**Auth**
+- `POST /api/auth/register`
+- `POST /api/auth/login`
+- `POST /api/auth/logout`
+- `GET /api/auth/me`
+
+**Tasks**
+- `GET /api/tasks`
+- `POST /api/tasks`
+- `PATCH /api/tasks/:id`
+- `DELETE /api/tasks/:id`
 
 ---
 
-# 📄 License
+## Notes
 
-This project is created for educational and internship purposes.
+- The blog backend creates an `uploads/` folder automatically for images.
+- The task manager uses `credentials: "include"` so cookies work correctly across frontend and backend.
+- Both apps expect MongoDB to be running and the `.env` values to be set correctly before starting.
+
+---
+
+## Author
+
+**Annany Thakur**  
+GitHub: `rimuru-OP`
+
+---
+
+## License
+
+This project is intended for educational and internship use.
