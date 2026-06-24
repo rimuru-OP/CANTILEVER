@@ -565,3 +565,21 @@
     border-color: #cbd5e1;
     color: #0f172a;
 }
+
+.board-summary {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-top: 4px;
+    font-weight: 500;
+}
+
+.summary-dot {
+    color: #cbd5e1;
+}
+
+.summary-overdue {
+    color: #dc2626;
+}

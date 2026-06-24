@@ -51,14 +51,34 @@ export default function Dashboard() {
         .filter((t) =>
             filterPriority === "all" ? true : t.priority === filterPriority
         );
-
+    const totalTasks = tasks.length;
+    const doneTasks = tasks.filter((t) => t.status === "done").length;
+    const inProgressTasks = tasks.filter((t) => t.status === "in_progress").length;
+    const overdueTasks = tasks.filter(
+        (t) => t.dueDate && new Date(t.dueDate) < new Date() && t.status !== "done"
+    ).length;
     return (
         <div className="dashboard">
             <DashboardHeader />
 
             <div className="dashboard-body">
                 <div className="board-header">
-                    <h1>My Board</h1>
+                    <div>
+                        <h1>My Board</h1>
+                        {!loadingTasks && totalTasks > 0 && (
+                            <div className="board-summary">
+                                <span>{doneTasks}/{totalTasks} done</span>
+                                <span className="summary-dot">·</span>
+                                <span>{inProgressTasks} in progress</span>
+                                {overdueTasks > 0 && (
+                                    <>
+                                        <span className="summary-dot">·</span>
+                                        <span className="summary-overdue">⚠ {overdueTasks} overdue</span>
+                                    </>
+                                )}
+                            </div>
+                        )}
+                    </div>
                     <button className="add-task-btn" onClick={() => setShowModal(true)}>
                         + New task
                     </button>
