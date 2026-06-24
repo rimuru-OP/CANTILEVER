@@ -1,219 +1,160 @@
-# CANTILEVER
+# CANTILEVER 🚀
 
-A small full-stack project collection built during the Cantilever internship journey.
+> A collection of full-stack web applications built with modern JavaScript technologies.
 
-This repository currently contains **two separate MERN-style applications**:
+## 🌟 What's Inside?
 
-- **Blog Website** — a full-stack blogging platform with authentication, post management, image uploads, and a rich text editor.
-- **Task Manager** — a task management app with authentication, protected routes, and a dashboard workflow.
+This repository contains two independent projects:
 
----
+### 📝 Blog Website
+A full-stack blogging platform where users can create, edit, manage, and explore articles.
 
-## Projects
+#### Features
+- 🔐 JWT Authentication (Register/Login)
+- 👤 Protected Routes
+- ✍️ Rich Text Blog Editor (TipTap)
+- 📷 Image Upload Support
+- 📝 Create, Edit & Delete Posts
+- 🔍 Browse and Read Articles
+- 📱 Responsive UI
+- 🛡️ Input Validation & Security Middleware
+- ⚡ REST API Backend
+- 💾 MongoDB Database Integration
 
-### 1) Blog Website
-
-A blogging platform where authenticated users can create, edit, and delete posts, upload cover images, and browse posts with search and pagination.
-
-**Highlights**
-- User registration and login with JWT
-- Create, update, delete, and read blog posts
-- Image upload support with Multer
-- Rich text editor for blog content
-- Search and pagination for posts
-- Protected routes for author actions
-- Responsive frontend UI
-
-**Tech Stack**
-- React
-- Vite
+#### Tech Stack
+**Frontend**
+- React 19
 - React Router
-- TipTap
-- Node.js
-- Express
-- MongoDB / Mongoose
-- JWT
-- Multer
-- bcryptjs
-
----
-
-### 2) Task Manager
-
-A task management application with authentication and a protected dashboard for managing tasks.
-
-**Highlights**
-- User registration, login, logout, and session restoration
-- Protected dashboard route
-- Task create, update, delete, and list APIs
-- Cookie-based auth flow
-- Dashboard/kanban-style task workflow
-- Responsive frontend UI
-
-**Tech Stack**
-- React
 - Vite
-- React Router DOM
-- Node.js
-- Express
-- MongoDB / Mongoose
-- JWT
-- HTTP-only cookies
-- bcryptjs
+- TipTap Editor
+- DOMPurify
+
+**Backend**
+- Express.js
+- MongoDB Atlas
+- Mongoose
+- JWT Authentication
+- Bcrypt
+- Multer
+- Express Validator
+- Rate Limiting
 
 ---
 
-## Repository Structure
+### ✅ Task Manager
+A productivity-focused task management application.
 
-```bash
+#### Features
+- Create Tasks
+- Track Progress
+- Manage Daily Workflow
+- Clean User Interface
+- Full-Stack Architecture
+
+---
+
+# 🏗 Repository Structure
+
+```text
 CANTILEVER/
+│
 ├── blog-website/
-│   ├── client/
-│   └── server/
+│   ├── client/     # React Frontend
+│   └── server/     # Express Backend
+│
 └── task-manager/
-    ├── client/
-    └── server/
 ```
 
----
+# 🖥 Blog Website Screens
 
-## Prerequisites
+- Home Page
+- Authentication Pages
+- Blog Listing
+- Individual Blog View
+- Blog Creation Dashboard
+- Blog Editing Interface
 
-Make sure you have the following installed:
+# ⚙️ Installation
 
-- Node.js
-- npm
-- MongoDB connection string
-- A `.env` file for each backend
+## Clone Repository
 
----
+```bash
+git clone https://github.com/rimuru-OP/CANTILEVER.git
+cd CANTILEVER
+```
 
-## Blog Website Setup
-
-### 1. Install dependencies
+## Blog Website Frontend
 
 ```bash
 cd blog-website/client
 npm install
-
-cd ../server
-npm install
+npm run dev
 ```
 
-### 2. Configure environment variables
-
-Create `blog-website/server/.env`:
-
-```env
-MONGO_URI=your_mongodb_connection_string_here
-JWT_SECRET=your_jwt_secret_here
-PORT=5000
-CLIENT_URL=http://localhost:5173
-```
-
-### 3. Run the backend
+## Blog Website Backend
 
 ```bash
 cd blog-website/server
+npm install
 npm run dev
 ```
 
-### 4. Run the frontend
+## Environment Variables
 
-```bash
-cd blog-website/client
-npm run dev
-```
-
-### Blog API Endpoints
-
-**Auth**
-- `POST /api/auth/register`
-- `POST /api/auth/login`
-
-**Posts**
-- `GET /api/posts`
-- `GET /api/posts/:id`
-- `POST /api/posts` *(protected, multipart/form-data)*
-- `PUT /api/posts/:id` *(protected, multipart/form-data)*
-- `DELETE /api/posts/:id` *(protected)*
-
----
-
-## Task Manager Setup
-
-### 1. Install dependencies
-
-```bash
-cd task-manager/client
-npm install
-
-cd ../server
-npm install
-```
-
-### 2. Configure environment variables
-
-Create `task-manager/server/.env`:
+Create a `.env` file inside `blog-website/server`
 
 ```env
-MONGO_URI=your_mongodb_connection_string_here
-JWT_SECRET=your_jwt_secret_here
 PORT=5000
-CLIENT_URL=http://localhost:5173
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
 ```
 
-Create `task-manager/client/.env`:
+# 🔌 API Overview
 
-```env
-VITE_API_URL=http://localhost:5000
+### Authentication
+
+```http
+POST /api/auth/register
+POST /api/auth/login
 ```
 
-### 3. Run the backend
+### Posts
 
-```bash
-cd task-manager/server
-npm run dev
+```http
+GET    /api/posts
+GET    /api/posts/:id
+POST   /api/posts
+PUT    /api/posts/:id
+DELETE /api/posts/:id
 ```
 
-### 4. Run the frontend
+# 🎯 Key Learning Outcomes
 
-```bash
-cd task-manager/client
-npm run dev
-```
+This repository demonstrates:
 
-### Task API Endpoints
+- Full-stack application development
+- Authentication & Authorization
+- REST API Design
+- MongoDB Data Modeling
+- File Upload Handling
+- React State Management
+- Protected Routing
+- Secure Backend Practices
+- Component-Based Frontend Architecture
 
-**Auth**
-- `POST /api/auth/register`
-- `POST /api/auth/login`
-- `POST /api/auth/logout`
-- `GET /api/auth/me`
+# 🚀 Future Improvements
 
-**Tasks**
-- `GET /api/tasks`
-- `POST /api/tasks`
-- `PATCH /api/tasks/:id`
-- `DELETE /api/tasks/:id`
+- Comments System
+- User Profiles
+- Blog Categories & Tags
+- Search & Filtering
+- Dark Mode
+- Email Verification
+- Bookmarking System
+- Admin Dashboard
 
----
+# 👨‍💻 Author
 
-## Notes
+Annany Thakur
 
-- The blog backend creates an `uploads/` folder automatically for images.
-- The task manager uses `credentials: "include"` so cookies work correctly across frontend and backend.
-- Both apps expect MongoDB to be running and the `.env` values to be set correctly before starting.
-
----
-
-## Author
-
-**Annany Thakur**  
-GitHub: `rimuru-OP`
-
----
-
-## License
-
-This project is intended for educational and internship use.
+If you like this project, consider giving the repository a ⭐.
