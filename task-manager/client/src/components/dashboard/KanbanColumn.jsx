@@ -14,17 +14,23 @@ export default function KanbanColumn({ column, tasks, onDelete, onEdit, onMove, 
                 <span className="column-count">{tasks.length}</span>
             </div>
             <div style={{ minHeight: "200px" }}>
-                {tasks.map((task) => (
-                    <TaskCard
-                        key={task._id}
-                        task={task}
-                        onDelete={onDelete}
-                        onEdit={onEdit}
-                        onMove={onMove}
-                        isFirst={isFirst}
-                        isLast={isLast}
-                    />
-                ))}
+                {tasks.length === 0 ? (
+                    <div className="column-empty">
+                        <span>No tasks here</span>
+                    </div>
+                ) : (
+                    tasks.map((task) => (
+                        <TaskCard
+                            key={task._id}
+                            task={task}
+                            onDelete={onDelete}
+                            onEdit={onEdit}
+                            onMove={onMove}
+                            isFirst={isFirst}
+                            isLast={isLast}
+                        />
+                    ))
+                )}
             </div>
         </div>
     );

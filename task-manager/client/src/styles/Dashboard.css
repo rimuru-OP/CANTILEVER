@@ -437,3 +437,16 @@
     pointer-events: none;
     border-radius: 10px;
 }
+
+.column-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    border: 1.5px dashed #e2e8f0;
+    border-radius: 10px;
+    color: #cbd5e1;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+}
