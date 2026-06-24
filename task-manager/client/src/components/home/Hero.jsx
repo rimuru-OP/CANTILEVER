@@ -1,14 +1,27 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import { useState } from "react";
 import "../../styles/Hero.css";
 
 export default function Hero() {
     const { user } = useAuth();
+    const [activeTab, setActiveTab] = useState("tasks");
 
     return (
         <section className="hero">
             <div className="hero-content">
-                {/* ... rest stays the same ... */}
+                <span className="hero-eyebrow">✦ Task management, simplified</span>
+
+                <h1>
+                    Stop managing chaos.<br />
+                    <span className="accent">Start getting things done.</span>
+                </h1>
+
+                <p>
+                    Organize tasks, track progress, and stay focused with a workflow
+                    built for people who actually want to finish things.
+                </p>
+
                 <div className="hero-buttons">
                     <Link to={user ? "/dashboard" : "/register"} className="btn-primary">
                         {user ? "Go to dashboard →" : "Get started free →"}
@@ -18,7 +31,6 @@ export default function Hero() {
                     </a>
                 </div>
 
-                {/* Dashboard preview mockup */}
                 <div className="hero-preview">
                     <div className="preview-bar">
                         <div className="preview-dots">
@@ -31,77 +43,87 @@ export default function Hero() {
                         <div className="preview-header">
                             <span className="preview-logo">DoIt</span>
                             <div className="preview-nav">
-                                <span className="active">Today</span>
-                                <span>Projects</span>
-                                <span>Calendar</span>
+                                <span
+                                    className={activeTab === "tasks" ? "active" : ""}
+                                    onClick={() => setActiveTab("tasks")}
+                                >
+                                    Tasks
+                                </span>
+                                <span
+                                    className={activeTab === "review" ? "active" : ""}
+                                    onClick={() => setActiveTab("review")}
+                                >
+                                    Review
+                                </span>
                             </div>
                         </div>
-                        <div className="preview-body">
-                            <div className="preview-stats">
-                                <div className="stat-card">
-                                    <div className="label">Tasks today</div>
-                                    <div className="value">12</div>
-                                    <div className="delta">↑ 3 added</div>
+
+                        {activeTab === "tasks" && (
+                            <div className="preview-body preview-kanban">
+                                {[
+                                    { label: "Not Started", color: "#94a3b8", cards: ["Set up repo", "Write tests"] },
+                                    { label: "In Progress", color: "#f59e0b", cards: ["Build API", "Design UI"] },
+                                    { label: "Done", color: "#22c55e", cards: ["Auth flow", "DB schema"] },
+                                    { label: "Cancelled", color: "#ef4444", cards: ["Old feature"] },
+                                ].map((col) => (
+                                    <div key={col.label} className="preview-col">
+                                        <div className="preview-col-header">
+                                            <span className="preview-col-dot" style={{ background: col.color }} />
+                                            <span className="preview-col-title">{col.label}</span>
+                                        </div>
+                                        {col.cards.map((card) => (
+                                            <div key={card} className="preview-task-card">
+                                                {card}
+                                            </div>
+                                        ))}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+                        {activeTab === "review" && (
+                            <div className="preview-body preview-review">
+                                <div className="preview-stats">
+                                    <div className="stat-card">
+                                        <div className="label">Total tasks</div>
+                                        <div className="value">12</div>
+                                        <div className="delta">across all columns</div>
+                                    </div>
+                                    <div className="stat-card">
+                                        <div className="label">Completed</div>
+                                        <div className="value">8</div>
+                                        <div className="delta">↑ 67%</div>
+                                    </div>
+                                    <div className="stat-card">
+                                        <div className="label">In Progress</div>
+                                        <div className="value">3</div>
+                                        <div className="delta">active now</div>
+                                    </div>
                                 </div>
-                                <div className="stat-card">
-                                    <div className="label">Completed</div>
-                                    <div className="value">8</div>
-                                    <div className="delta">↑ 67%</div>
-                                </div>
-                                <div className="stat-card">
-                                    <div className="label">Day streak</div>
-                                    <div className="value">14d</div>
-                                    <div className="delta">↑ Best</div>
+                                <div className="preview-progress">
+                                    <div className="panel-title">Status breakdown</div>
+                                    {[
+                                        { label: "Done", pct: 67, color: "#22c55e" },
+                                        { label: "In Progress", pct: 25, color: "#f59e0b" },
+                                        { label: "Not Started", pct: 8, color: "#94a3b8" },
+                                        { label: "Cancelled", pct: 8, color: "#ef4444" },
+                                    ].map((row) => (
+                                        <div key={row.label} className="prog-row">
+                                            <div className="prog-meta">
+                                                <span>{row.label}</span>
+                                                <span>{row.pct}%</span>
+                                            </div>
+                                            <div className="prog-track">
+                                                <div
+                                                    className="prog-fill"
+                                                    style={{ width: `${row.pct}%`, background: row.color }}
+                                                />
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
-                            <div className="task-panel">
-                                <div className="panel-title">Today's tasks</div>
-                                <div className="task-row">
-                                    <div className="task-circle done"></div>
-                                    <span className="task-name done">Review design mockups</span>
-                                    <span className="task-tag tag-green">Done</span>
-                                </div>
-                                <div className="task-row">
-                                    <div className="task-circle done"></div>
-                                    <span className="task-name done">Team standup</span>
-                                    <span className="task-tag tag-green">Done</span>
-                                </div>
-                                <div className="task-row">
-                                    <div className="task-circle"></div>
-                                    <span className="task-name">Finish API integration</span>
-                                    <span className="task-tag tag-blue">Dev</span>
-                                </div>
-                                <div className="task-row">
-                                    <div className="task-circle"></div>
-                                    <span className="task-name">Write project docs</span>
-                                    <span className="task-tag tag-amber">Today</span>
-                                </div>
-                                <div className="task-row">
-                                    <div className="task-circle"></div>
-                                    <span className="task-name">Reply to client</span>
-                                    <span className="task-tag tag-gray">Email</span>
-                                </div>
-                            </div>
-                            <div className="progress-panel">
-                                <div className="panel-title">Project progress</div>
-                                <div className="prog-row">
-                                    <div className="prog-meta"><span>Backend API</span><span>82%</span></div>
-                                    <div className="prog-track"><div className="prog-fill" style={{ width: "82%" }}></div></div>
-                                </div>
-                                <div className="prog-row">
-                                    <div className="prog-meta"><span>Frontend UI</span><span>60%</span></div>
-                                    <div className="prog-track"><div className="prog-fill amber" style={{ width: "60%" }}></div></div>
-                                </div>
-                                <div className="prog-row">
-                                    <div className="prog-meta"><span>Testing</span><span>35%</span></div>
-                                    <div className="prog-track"><div className="prog-fill green" style={{ width: "35%" }}></div></div>
-                                </div>
-                                <div className="prog-row">
-                                    <div className="prog-meta"><span>Docs</span><span>20%</span></div>
-                                    <div className="prog-track"><div className="prog-fill" style={{ width: "20%", background: "#bfdbfe" }}></div></div>
-                                </div>
-                            </div>
-                        </div>
+                        )}
                     </div>
                 </div>
             </div>
