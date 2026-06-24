@@ -1,25 +1,17 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 import "../../styles/Hero.css";
 
 export default function Hero() {
+    const { user } = useAuth();
+
     return (
         <section className="hero">
             <div className="hero-content">
-                <span className="hero-eyebrow">✦ Task management, simplified</span>
-
-                <h1>
-                    Stop managing chaos.<br />
-                    <span className="accent">Start getting things done.</span>
-                </h1>
-
-                <p>
-                    Organize tasks, track progress, and stay focused with a workflow
-                    built for people who actually want to finish things.
-                </p>
-
+                {/* ... rest stays the same ... */}
                 <div className="hero-buttons">
-                    <Link to="/register" className="btn-primary">
-                        Get started free →
+                    <Link to={user ? "/dashboard" : "/register"} className="btn-primary">
+                        {user ? "Go to dashboard →" : "Get started free →"}
                     </Link>
                     <a href="#features" className="btn-secondary">
                         See how it works
