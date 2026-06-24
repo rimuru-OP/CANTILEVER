@@ -626,7 +626,6 @@
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
-    max-width: 700px;
 }
 
 .review-stats {
@@ -675,6 +674,7 @@
     border: 1px solid #e2e8f0;
     border-radius: 14px;
     padding: 1.25rem 1.5rem;
+    width: 100%;
 }
 
 .review-breakdown-title {
