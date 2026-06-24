@@ -583,3 +583,137 @@
 .summary-overdue {
     color: #dc2626;
 }
+
+/* Tabs */
+.board-header-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.dashboard-tabs {
+    display: flex;
+    background: #f1f5f9;
+    border-radius: 8px;
+    padding: 3px;
+    gap: 2px;
+}
+
+.dash-tab {
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.dash-tab.active {
+    background: white;
+    color: #0f172a;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+}
+
+.dash-tab:hover:not(.active) {
+    color: #0f172a;
+}
+
+/* Review panel */
+.review-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    max-width: 700px;
+}
+
+.review-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.review-stat-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+}
+
+.review-stat-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #94a3b8;
+    margin-bottom: 0.5rem;
+}
+
+.review-stat-value {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+}
+
+.review-stat-sub {
+    font-size: 0.78rem;
+    color: #94a3b8;
+}
+
+.review-stat-sub.highlight {
+    color: #22c55e;
+    font-weight: 600;
+}
+
+.review-breakdown {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+}
+
+.review-breakdown-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 1.25rem;
+}
+
+.review-prog-row {
+    margin-bottom: 1rem;
+}
+
+.review-prog-row:last-child {
+    margin-bottom: 0;
+}
+
+.review-prog-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-bottom: 6px;
+}
+
+.review-prog-meta span:last-child {
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.review-prog-track {
+    height: 8px;
+    background: #f1f5f9;
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+.review-prog-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.6s ease;
+}
