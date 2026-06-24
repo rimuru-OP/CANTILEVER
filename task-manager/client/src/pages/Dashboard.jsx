@@ -10,6 +10,8 @@ export default function Dashboard() {
     const [showModal, setShowModal] = useState(false);
     const [editingTask, setEditingTask] = useState(null);
     const [loadingTasks, setLoadingTasks] = useState(true);
+    const [search, setSearch] = useState("");
+    const [filterPriority, setFilterPriority] = useState("all");
 
     useEffect(() => {
         fetchTasks()
@@ -42,6 +44,14 @@ export default function Dashboard() {
         setEditingTask(null);
     }
 
+    const filteredTasks = tasks
+        .filter((t) =>
+            t.title.toLowerCase().includes(search.toLowerCase())
+        )
+        .filter((t) =>
+            filterPriority === "all" ? true : t.priority === filterPriority
+        );
+
     return (
         <div className="dashboard">
             <DashboardHeader />
@@ -52,6 +62,34 @@ export default function Dashboard() {
                     <button className="add-task-btn" onClick={() => setShowModal(true)}>
                         + New task
                     </button>
+                </div>
+
+                <div className="board-filters">
+                    <input
+                        className="filter-search"
+                        type="text"
+                        placeholder="Search tasks..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
+                    <select
+                        className="filter-select"
+                        value={filterPriority}
+                        onChange={(e) => setFilterPriority(e.target.value)}
+                    >
+                        <option value="all">All priorities</option>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                    {(search || filterPriority !== "all") && (
+                        <button
+                            className="filter-clear"
+                            onClick={() => { setSearch(""); setFilterPriority("all"); }}
+                        >
+                            Clear
+                        </button>
+                    )}
                 </div>
 
                 {loadingTasks ? (
@@ -67,7 +105,7 @@ export default function Dashboard() {
                     </div>
                 ) : (
                     <KanbanBoard
-                        tasks={tasks}
+                        tasks={filteredTasks}
                         setTasks={setTasks}
                         onDelete={handleDelete}
                         onUpdate={handleUpdate}
