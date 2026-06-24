@@ -9,11 +9,13 @@ export default function Dashboard() {
     const [tasks, setTasks] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [editingTask, setEditingTask] = useState(null);
+    const [loadingTasks, setLoadingTasks] = useState(true);
 
     useEffect(() => {
         fetchTasks()
             .then(setTasks)
-            .catch(console.error);
+            .catch(console.error)
+            .finally(() => setLoadingTasks(false));
     }, []);
 
     async function handleAddTask(payload) {
@@ -52,13 +54,26 @@ export default function Dashboard() {
                     </button>
                 </div>
 
-                <KanbanBoard
-                    tasks={tasks}
-                    setTasks={setTasks}
-                    onDelete={handleDelete}
-                    onUpdate={handleUpdate}
-                    onEdit={handleEditClick}
-                />
+                {loadingTasks ? (
+                    <div className="board-skeleton">
+                        {[1, 2, 3, 4].map((i) => (
+                            <div key={i} className="skeleton-column">
+                                <div className="skeleton-header" />
+                                <div className="skeleton-card" />
+                                <div className="skeleton-card short" />
+                                <div className="skeleton-card" />
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <KanbanBoard
+                        tasks={tasks}
+                        setTasks={setTasks}
+                        onDelete={handleDelete}
+                        onUpdate={handleUpdate}
+                        onEdit={handleEditClick}
+                    />
+                )}
             </div>
 
             {(showModal || editingTask) && (
