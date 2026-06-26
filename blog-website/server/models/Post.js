@@ -34,6 +34,13 @@ const postSchema = new mongoose.Schema(
             type: String,
             default: "",
         },
+
+        // Cloudinary public_id for the uploaded image, used to delete/replace
+        // the asset on Cloudinary later. Empty for posts with no image.
+        imagePublicId: {
+            type: String,
+            default: "",
+        },
     },
 
     {
