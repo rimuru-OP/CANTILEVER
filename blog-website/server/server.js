@@ -1,12 +1,13 @@
+const dotenv = require("dotenv");
+dotenv.config();
+
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
 const authRoutes = require("./routes/authRoutes/authRoutes");
 const postRoutes = require("./routes/postRoutes");
 const fs = require("fs");
 
-dotenv.config();
 if (!fs.existsSync("uploads")) {
     fs.mkdirSync("uploads");
 }
