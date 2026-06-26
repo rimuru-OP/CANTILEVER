@@ -1,177 +1,160 @@
-# 🚀 Cantilever Internship Projects
+# CANTILEVER 🚀
 
-This repository contains the projects completed as part of the **Cantilever Internship Program**.
-The objective of these projects is to demonstrate practical knowledge of **full-stack web development**, including frontend development, backend APIs, authentication, database integration, deployment, and responsive UI design.
+> A collection of full-stack web applications built with modern JavaScript technologies.
 
----
+## 🌟 What's Inside?
 
-# 📌 Projects Included
+This repository contains two independent projects:
 
-## 1️⃣ Blog Website
+### 📝 Blog Website
+A full-stack blogging platform where users can create, edit, manage, and explore articles.
 
-A full-stack blogging platform where users can create and manage blog posts.
+#### Features
+- 🔐 JWT Authentication (Register/Login)
+- 👤 Protected Routes
+- ✍️ Rich Text Blog Editor (TipTap)
+- 📷 Image Upload Support
+- 📝 Create, Edit & Delete Posts
+- 🔍 Browse and Read Articles
+- 📱 Responsive UI
+- 🛡️ Input Validation & Security Middleware
+- ⚡ REST API Backend
+- 💾 MongoDB Database Integration
 
-### Features
+#### Tech Stack
+**Frontend**
+- React 19
+- React Router
+- Vite
+- TipTap Editor
+- DOMPurify
 
-* User Authentication (Register/Login/Logout)
-* Create, Read, Update, Delete (CRUD) Blog Posts
-* Responsive UI Design
-* Backend API Integration
-* Database Support using MongoDB/Firebase
-* Deployment Support
-
-### Tech Stack
-
-* React.js
-* Node.js
-* Express.js
-* MongoDB / Firebase
-* JWT Authentication
-
----
-
-## 2️⃣ Task Management System
-
-A task management application designed for organizing and tracking tasks efficiently.
-
-### Features
-
-* User Authentication using JWT
-* CRUD Operations for Tasks
-* Task Filtering & Sorting
-* Responsive Design (Mobile + Desktop)
-* REST API Integration
-* Database Management
-
-### Tech Stack
-
-* React.js
-* Node.js
-* Express.js
-* MongoDB / Firebase
-* JWT Authentication
+**Backend**
+- Express.js
+- MongoDB Atlas
+- Mongoose
+- JWT Authentication
+- Bcrypt
+- Multer
+- Express Validator
+- Rate Limiting
 
 ---
 
-# 🛠️ Tech Stack Used
+### ✅ Task Manager
+A productivity-focused task management application.
 
-## Frontend
-
-* HTML5
-* CSS3
-* JavaScript
-* React.js
-
-## Backend
-
-* Node.js
-* Express.js
-
-## Database
-
-* MongoDB / Firebase
-
-## Authentication
-
-* JSON Web Tokens (JWT)
-
-## Deployment
-
-* Netlify
-* Heroku
+#### Features
+- Create Tasks
+- Track Progress
+- Manage Daily Workflow
+- Clean User Interface
+- Full-Stack Architecture
 
 ---
 
-# 📂 Project Structure
+# 🏗 Repository Structure
 
-```bash
-├── client/        # Frontend source code
-├── server/        # Backend source code
-└── README.md
+```text
+CANTILEVER/
+│
+├── blog-website/
+│   ├── client/     # React Frontend
+│   └── server/     # Express Backend
+│
+└── task-manager/
 ```
 
----
+# 🖥 Blog Website Screens
 
-# ⚙️ Installation & Setup
+- Home Page
+- Authentication Pages
+- Blog Listing
+- Individual Blog View
+- Blog Creation Dashboard
+- Blog Editing Interface
 
-## Clone the Repository
+# ⚙️ Installation
+
+## Clone Repository
 
 ```bash
-git clone https://github.com/your-username/cantilever.git
-cd cantilever
+git clone https://github.com/rimuru-OP/CANTILEVER.git
+cd CANTILEVER
 ```
 
----
-
-## Install Dependencies
-
-### Frontend
+## Blog Website Frontend
 
 ```bash
-cd client
+cd blog-website/client
 npm install
-```
-
-### Backend
-
-```bash
-cd server
-npm install
-```
-
----
-
-# ▶️ Run the Application
-
-## Start Frontend
-
-```bash
-npm start
-```
-
-## Start Backend
-
-```bash
 npm run dev
 ```
 
----
+## Blog Website Backend
 
-# 🎯 Learning Objectives
+```bash
+cd blog-website/server
+npm install
+npm run dev
+```
 
-* Build scalable full-stack applications
-* Understand authentication systems
-* Learn API development and database integration
-* Practice responsive web design
-* Gain experience with deployment workflows
-* Improve project structuring and clean coding practices
+## Environment Variables
 
----
+Create a `.env` file inside `blog-website/server`
 
-# 🌐 Deployment
+```env
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+```
 
-Frontend can be deployed on:
+# 🔌 API Overview
 
-* Netlify
-* Vercel
+### Authentication
 
-Backend can be deployed on:
+```http
+POST /api/auth/register
+POST /api/auth/login
+```
 
-* Heroku
-* Render
-* Railway
+### Posts
 
----
+```http
+GET    /api/posts
+GET    /api/posts/:id
+POST   /api/posts
+PUT    /api/posts/:id
+DELETE /api/posts/:id
+```
+
+# 🎯 Key Learning Outcomes
+
+This repository demonstrates:
+
+- Full-stack application development
+- Authentication & Authorization
+- REST API Design
+- MongoDB Data Modeling
+- File Upload Handling
+- React State Management
+- Protected Routing
+- Secure Backend Practices
+- Component-Based Frontend Architecture
+
+# 🚀 Future Improvements
+
+- Comments System
+- User Profiles
+- Blog Categories & Tags
+- Search & Filtering
+- Dark Mode
+- Email Verification
+- Bookmarking System
+- Admin Dashboard
 
 # 👨‍💻 Author
 
-**Annany Thakur**
+Annany Thakur
 
-* GitHub: https://github.com/rimuru-OP
-* LinkedIn: https://www.linkedin.com/in/annany-thakur-592823291
-
----
-
-# 📄 License
-
-This project is created for educational and internship purposes.
+If you like this project, consider giving the repository a ⭐.
