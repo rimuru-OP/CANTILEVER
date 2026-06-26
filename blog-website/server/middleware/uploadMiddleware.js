@@ -1,27 +1,21 @@
 const multer = require("multer");
-const fileFilter = (req, file, cb)=>{
-    if(file.mimetype.startsWith("image/")){
+
+const fileFilter = (req, file, cb) => {
+    if (file.mimetype.startsWith("image/")) {
         cb(null, true);
     } else {
         cb(new Error("Only image files are allowed"), false);
     }
 };
-const storage = multer.diskStorage({
-    destination: function(req, file, cb){
-        cb(null, "uploads/");
-    },
-    filename: function(req, file, cb){
-        cb(
-            null,
-            Date.now() + "-" + file.originalname
-        );
-    }
-});
+
+// Files are kept in memory (as a Buffer on req.file.buffer) instead of being
+// written to disk, since they're uploaded straight to Cloudinary from there.
+const storage = multer.memoryStorage();
 
 const upload = multer({
     storage,
     fileFilter,
-    limits: {fileSize: 5*1024*1024},
+    limits: { fileSize: 5 * 1024 * 1024 },
 });
 
 module.exports = upload;
