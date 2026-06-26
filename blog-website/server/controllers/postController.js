@@ -1,6 +1,6 @@
 const Post = require("../models/Post");
 const {validationResult} = require('express-validator');
-const fs = require('fs');
+const { uploadBufferToCloudinary, deleteFromCloudinary } = require("../utils/cloudinaryUpload");
 /* =========================
    CREATE POST
 ========================= */
@@ -18,9 +18,14 @@ const createPost = async (req, res) => {
             content,
         } = req.body;
 
-        const image = req.file
-            ? `/uploads/${req.file.filename}`
-            : "";
+        let image = "";
+        let imagePublicId = "";
+
+        if (req.file) {
+            const uploaded = await uploadBufferToCloudinary(req.file.buffer);
+            image = uploaded.url;
+            imagePublicId = uploaded.publicId;
+        }
 
         const post = new Post({
             title,
@@ -28,6 +33,7 @@ const createPost = async (req, res) => {
             description,
             content,
             image,
+            imagePublicId,
             user: req.user._id,
         });
 
@@ -73,8 +79,8 @@ const deletePost = async (req, res) => {
         }
 
         /* DELETE */
-        if(post.image){
-            fs.unlink("."+post.image, (err)=>{if(err)console.error(err);});
+        if (post.imagePublicId) {
+            await deleteFromCloudinary(post.imagePublicId);
         }
         await post.deleteOne();
 
@@ -119,11 +125,16 @@ const updatePost = async (req, res) => {
         post.category    = req.body.category    || post.category;
         post.description = req.body.description || post.description;
         post.content     = req.body.content     || post.content;
-        if(req.file){
-            if(post.image){
-                fs.unlink("." + post.image, (err) => { if (err) console.error(err);});
+        if (req.file) {
+            const oldPublicId = post.imagePublicId;
+            const uploaded = await uploadBufferToCloudinary(req.file.buffer);
+            post.image = uploaded.url;
+            post.imagePublicId = uploaded.publicId;
+
+            // Clean up the old asset only after the new one is safely uploaded.
+            if (oldPublicId) {
+                await deleteFromCloudinary(oldPublicId);
             }
-            post.image = `/uploads/${req.file.filename}`;
         }
         
         /* SAVE */
