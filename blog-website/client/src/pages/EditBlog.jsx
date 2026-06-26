@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Layout from "../components/Layout.jsx";
 import RichTextEditor from "../components/RichTextEditor.jsx";
-import API from "../api.js";
+import { getImageUrl } from "../api.js";
 import { apiFetch } from "../apiFetch.js";
 import { SkeletonPost } from "../components/Skeleton.jsx";
 
@@ -143,7 +143,7 @@ export default function EditBlog() {
 
                     {(preview || existingImage) && (
                         <img
-                            src={preview || `${API}${existingImage}`}
+                            src={preview || getImageUrl(existingImage)}
                             alt="Preview"
                             className="edit-preview-image"
                         />

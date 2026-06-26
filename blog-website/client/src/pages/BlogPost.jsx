@@ -1,5 +1,5 @@
 import "../stylesheets/BlogPost.css";
-import API from "../api.js";
+import { getImageUrl } from "../api.js";
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext.jsx";
 import DOMPurify from "dompurify";
@@ -157,7 +157,7 @@ export default function BlogPost() {
                         <div className="blog-hero">
 
                             <img
-                                src={`${API}${post.image}`}
+                                src={getImageUrl(post.image)}
                                 alt={post.title}
                                 className="blog-image"
                             />

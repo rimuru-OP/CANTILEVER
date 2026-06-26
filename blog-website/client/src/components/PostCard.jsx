@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import API from "../api.js";
+import { getImageUrl } from "../api.js";
 export default function PostCard({ post }) {
 
     // FIX: was post.date which is undefined for API posts —
@@ -19,7 +19,7 @@ export default function PostCard({ post }) {
 
                 {post.image && (
                     <img
-                        src={`${API}${post.image}`}
+                        src={getImageUrl(post.image)}
                         alt={post.title}
                         className="post-image"
                     />
