@@ -25,6 +25,11 @@ if(!process.env.CLIENT_URL){
     console.error("FATAL: CLIENT_URL not set in .env");
     process.exit(1);
 }
+
+if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
+    console.error("FATAL: CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY and CLOUDINARY_API_SECRET must be set in .env");
+    process.exit(1);
+}
 /* =========================
    DATABASE
 ========================= */
@@ -50,6 +55,9 @@ app.use(cors({
 
 app.use(express.json());
 
+// Kept only to serve pre-Cloudinary images that already exist on disk from
+// before this feature was added. New uploads go straight to Cloudinary and
+// never touch this folder.
 app.use("/uploads", express.static("uploads"));
 /* =========================
    ROUTES
